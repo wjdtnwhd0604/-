@@ -370,7 +370,7 @@
 
     .price-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr; /* 패키지 1개로 통합 */
       gap: 12px;
       margin-bottom: 1.5rem;
     }
@@ -378,7 +378,7 @@
       background: #ffffff;
       border: 1px solid var(--color-border);
       border-radius: var(--border-radius-lg);
-      padding: 1.25rem;
+      padding: 1.5rem;
       position: relative;
       display: flex;
       flex-direction: column;
@@ -391,59 +391,44 @@
       top: -11px; right: 14px;
       background: var(--color-primary);
       color: #ffffff;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
-      padding: 3px 10px;
+      padding: 4px 12px;
       border-radius: 20px;
     }
     .price-card-title { 
-      font-size: 14px; 
+      font-size: 16px; 
       font-weight: 700; 
       color: var(--color-text-main); 
       margin-bottom: 0.5rem; 
     }
     .price-card-price { 
-      font-size: 22px; 
+      font-size: 26px; 
       font-weight: 700; 
       color: var(--color-primary-dark); 
       margin-bottom: 0.25rem; 
     }
     .price-card-unit { 
-      font-size: 11px; 
+      font-size: 12px; 
       color: var(--color-text-muted); 
-      margin-bottom: 0.75rem; 
+      margin-bottom: 1rem; 
     }
     .price-card-items { 
       list-style: none; 
-      font-size: 12px; 
+      font-size: 13px; 
       color: var(--color-text-muted); 
       margin-top: auto;
     }
     .price-card-items li { 
-      padding: 4px 0; 
+      padding: 6px 0; 
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
     }
     .price-card-items li::before { 
       content: '✓'; 
       color: var(--color-primary);
       font-weight: bold;
-    }
-
-    /* 패키지 견적 시뮬레이터 */
-    .calculator-box {
-      background: var(--color-bg-light);
-      border: 1px solid var(--color-border);
-      border-radius: var(--border-radius-lg);
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-    }
-    .calculator-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 10px;
     }
 
     /* 신청 폼 */
@@ -496,87 +481,6 @@
     textarea { 
       height: 90px; 
       resize: vertical; 
-    }
-
-    /* 체크박스 그룹 */
-    .checkbox-group { 
-      display: flex; 
-      flex-direction: column; 
-      gap: 8px; 
-    }
-    .checkbox-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      border: 1px solid var(--color-border);
-      border-radius: var(--border-radius-md);
-      cursor: pointer;
-      font-size: 13px;
-      background: #ffffff;
-      transition: all 0.15s;
-    }
-    .checkbox-item input[type="checkbox"] { 
-      accent-color: var(--color-primary); 
-      width: 16px; 
-      height: 16px; 
-    }
-    .checkbox-item:has(input:checked) {
-      border-color: var(--color-primary);
-      background: var(--color-primary-light);
-    }
-    .checkbox-item-info { 
-      flex: 1; 
-    }
-    .checkbox-item-name { 
-      font-weight: 700; 
-      color: var(--color-text-main);
-    }
-    .checkbox-item-desc { 
-      font-size: 11.5px; 
-      color: var(--color-text-muted); 
-      margin-top: 2px; 
-    }
-    .checkbox-price { 
-      font-size: 13px; 
-      color: var(--color-primary-dark); 
-      font-weight: 700; 
-    }
-
-    /* 결제 예상 금액 요약 */
-    .price-summary {
-      background: var(--color-primary-dark);
-      border-radius: var(--border-radius-lg);
-      padding: 1.25rem;
-      margin-top: 1.5rem;
-      color: #ffffff;
-    }
-    .price-summary-title {
-      font-size: 12px;
-      color: var(--color-accent);
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: 0.05em;
-    }
-    .price-summary-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      padding: 6px 0;
-      color: rgba(255,255,255,0.8);
-    }
-    .price-summary-total {
-      display: flex;
-      justify-content: space-between;
-      font-size: 18px;
-      font-weight: 700;
-      color: #ffffff;
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(255,255,255,0.15);
-    }
-    .price-summary-total .total-amount {
-      color: var(--color-accent);
     }
 
     .submit-btn {
@@ -696,7 +600,7 @@
 <div class="site-wrap">
   <div class="hero">
     <div class="hero-badge">중도입국청소년 전용 입학 지원</div>
-    <h1>번거롭고 복잡한 베트남 학교 서류,<br>기존 대비 약 3배 이상 저렴하게!</h1>
+    <h1>번거롭고 복잡한 한국 입학 서류 준비!,<br>기존 대비 약 3배 이상 저렴하게!</h1>
     <p>부수가 많아질수록 기하급수적으로 늘어나던 공증료 부담을 덜어드립니다. 번역부터 아포스티유 공증까지 투명하고 직관적인 원스톱 대행 서비스를 제공합니다.</p>
     <div class="hero-stats">
       <div class="hero-stat">
@@ -717,7 +621,7 @@
   <div class="tab-nav">
     <button class="tab-btn active" onclick="showTab('country', this)"><i class="ti ti-world"></i> 국가별 안내</button>
     <button class="tab-btn" onclick="showTab('price', this)"><i class="ti ti-coin-won"></i> 비용 안내</button>
-    <button class="tab-btn" onclick="showTab('apply', this)"><i class="ti ti-file-pencil"></i> 서류 신청</button>
+    <button class="tab-btn" onclick="showTab('apply', this)"><i class="ti ti-file-pencil"></i> 상담 신청</button>
     <button class="tab-btn" onclick="showTab('faq', this)"><i class="ti ti-help-circle"></i> 자주 묻는 질문</button>
   </div>
 
@@ -733,7 +637,7 @@
       <div class="doc-info-box" id="docInfoBox"></div>
       <div class="notice-box" id="countryNotice"></div>
       <button onclick="goToApplyTab()" class="submit-btn" style="margin-top: 1.25rem;">
-        베트남 서류 신청서 작성하기 <i class="ti ti-arrow-right"></i>
+        무료 견적 상담 신청하기 <i class="ti ti-arrow-right"></i>
       </button>
     </div>
   </div>
@@ -765,51 +669,28 @@
     </div>
 
     <div class="price-grid">
-      <div class="price-card">
-        <div class="price-card-title">기본 번역료</div>
-        <div class="price-card-price">30,000원</div>
-        <div class="price-card-unit">1부/페이지당</div>
-        <ul class="price-card-items">
-          <li>번역 매칭</li>
-          <li>입학 목적 맞춤 검수</li>
-        </ul>
-      </div>
       <div class="price-card featured">
-        <div class="price-card-badge">동결 혜택</div>
-        <div class="price-card-title">아포스티유 공증 대행</div>
-        <div class="price-card-price">400,000원</div>
-        <div class="price-card-unit">전체 부수 무관 고정 단일가</div>
+        <div class="price-card-badge">입학 필수 서류 올인원</div>
+        <div class="price-card-title">전체 패키지 (번역 + 공증)</div>
+        <div class="price-card-price">490,000원</div>
+        <div class="price-card-unit">입학 필수 서류 일체 통합가</div>
         <ul class="price-card-items">
+          <li>기본 서류 번역 및 입학 목적 맞춤 검수 포함</li>
+          <li>아포스티유 공증 대행 포함</li>
           <li>복수 부수 추가비 없음</li>
           <li>접수부터 처리까지 원스톱</li>
         </ul>
       </div>
     </div>
 
-    <div class="calculator-box">
-      <div class="calculator-title"><i class="ti ti-calculator"></i> 예상 가상 견적 시뮬레이터</div>
-      <div class="compare-row" style="padding: 6px 0; font-size:12.5px;">
-        <span class="compare-label">베트남 서류 3부 번역료</span>
-        <span class="compare-value">90,000원</span>
-      </div>
-      <div class="compare-row" style="padding: 6px 0; font-size:12.5px;">
-        <span class="compare-label">아포스티유 공증 통합 비용 (고정)</span>
-        <span class="compare-value">400,000원</span>
-      </div>
-      <div class="compare-row" style="padding: 10px 0 0; margin-top: 8px; border-top: 1px dashed var(--color-border); font-size:14.5px;">
-        <span class="compare-label" style="color: var(--color-primary-dark); font-weight:700;">최종 가상 예산</span>
-        <span class="compare-value" style="color: var(--color-primary); font-weight:700;">490,000원</span>
-      </div>
-    </div>
-
-    <button onclick="goToApplyTab()" class="submit-btn">지금 간편하게 신청하러 가기</button>
+    <button onclick="goToApplyTab()" class="submit-btn">지금 간편하게 견적 상담받기</button>
   </div>
 
   <div id="tab-apply" class="section">
     <div id="applyForm">
       <div class="section-header">
-        <h2>서류 대행 신청서</h2>
-        <p>몇 가지 항목만 남겨주시면 서류 전담 행정 매니저가 유선 및 메신저로 즉각적인 처리를 도웁니다.</p>
+        <h2>무료 견적 상담 신청</h2>
+        <p>이름과 연락처를 남겨주시면, 전문 행정 매니저가 연락드려 상황에 맞는 정확한 견적과 절차를 안내해 드립니다. (결제는 상담 후 진행됩니다)</p>
       </div>
 
       <div class="form-section-title"><i class="ti ti-user-check"></i> 신청자 기본 정보</div>
@@ -841,41 +722,24 @@
         </select>
       </div>
 
-      <div class="form-section-title"><i class="ti ti-checkbox"></i> 필요한 서비스 항목 및 부수 선택</div>
-      <div class="checkbox-group" id="serviceCheckboxList"></div>
-
-      <div class="price-summary">
-        <div class="price-summary-title">실시간 예상 비용 시뮬레이션</div>
-        <div id="summaryRows">
-          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.6); text-align: center; padding: 10px 0;">서비스 항목을 선택해 주세요.</div>
-        </div>
-        <div class="price-summary-total">
-          <span>예상 납부 비용</span>
-          <span class="total-amount" id="totalPrice">0원</span>
-        </div>
-        <p style="font-size:11px; color: rgba(255,255,255,0.5); margin-top: 8px; line-height: 1.4;">
-          * 번역 서류의 수량 및 번역 난이도에 따라 담당 매니저와의 통화 후 일부 조율될 수 있습니다.
-        </p>
-      </div>
-
-      <div class="form-section-title"><i class="ti ti-notebook"></i> 요청사항 및 비고</div>
+      <div class="form-section-title"><i class="ti ti-notebook"></i> 추가 문의 및 비고 사항</div>
       <div class="form-row">
-        <textarea id="f_memo" placeholder="예: 졸업증명서와 성적증명서 총 2개의 서류에 대해 번역과 아포스티유 공증 처리가 필요합니다. 추가 설명이 필요한 경우 여기에 적어주세요."></textarea>
+        <textarea id="f_memo" placeholder="예: 준비 중인 서류의 종류나 궁금한 점을 편하게 적어주시면 상담 시 더욱 빠른 안내가 가능합니다."></textarea>
       </div>
 
-      <button class="submit-btn" onclick="submitForm()">서류 대행 신청하기</button>
+      <button class="submit-btn" onclick="submitForm()">전문 매니저 상담 신청하기</button>
       <p style="text-align:center; font-size:11px; color: var(--color-text-muted); margin-top: 0.8rem;">
-        기재해주신 귀중한 개인정보는 학교 제출용 대행 정보 취급 목적으로만 활용되며 안전하게 보호됩니다.
+        상담을 위해 남겨주신 연락처는 견적 안내 용도로만 활용되며 안전하게 보호됩니다.
       </p>
     </div>
 
     <div class="success-screen" id="successScreen">
       <div class="success-icon"><i class="ti ti-circle-check"></i></div>
-      <h3>신청이 정상 접수되었습니다!</h3>
-      <p>베트남 서류 전담 지원 매니저가 기재해주신 연락처로 <strong>1영업일 이내</strong>에 신속히 전화를 드릴 예정입니다.</p>
+      <h3>상담 신청이 정상 접수되었습니다!</h3>
+      <p>베트남 서류 전담 지원 매니저가 기재해주신 연락처로 <strong>1영업일 이내</strong>에 신속히 전화를 드려 상세 견적과 절차를 안내해 드릴 예정입니다.</p>
       
       <div class="success-guide">
-        <strong>💡 원활한 진행을 위해 미리 준비해 두면 좋은 사항들</strong>
+        <strong>💡 원활한 상담을 위해 미리 확인해 두시면 좋은 사항들</strong>
         · 베트남 현지 서류 원본 또는 깨끗하고 선명하게 찍은 사진파일<br>
         · 자녀의 여권 또는 임시 신분 증명서<br>
         · 제출해야 하는 입학 예정 학교의 세부 서류 안내문
@@ -895,7 +759,7 @@
 </div>
 
 <script>
-  // 1. 국가별 기본 정보 데이터 관리
+  // 1. 국가별 기본 정보 데이터 관리 (예방접종 증명서 공증 추가)
   const countries = [
     { 
       flag: '🇻🇳', 
@@ -906,7 +770,7 @@
         { name: '학력 증명 서류 (졸업증명서 / 재학증명서)', desc: '베트남 현지 학교에서 정식 발급된 서류', tags: ['번역', '아포스티유 공증'] },
         { name: '성적 증명서 (각 학년부)', desc: '국내 교육기관 편입에 필수적인 연차별 이수 성적 서류', tags: ['번역', '아포스티유 공증'] },
         { name: '출생 증명서 (가족관계 입증 서류)', desc: '친권 관계 입증과 중도입국 청소년 신분 증명을 위한 공인 서류', tags: ['번역', '아포스티유 공증'] },
-        { name: '예방 접종 증명서', desc: '학교 보건 가이드라인 제출용 백신 이력', tags: ['번역'] }
+        { name: '예방 접종 증명서', desc: '학교 보건 가이드라인 제출용 백신 이력', tags: ['번역', '아포스티유 공증'] }
       ], 
       notice: '베트남 전용 루트 설계 및 부수 무관 공증 정액 요금제 도입으로 타사 대비 가격 경쟁력이 매우 월등합니다.' 
     },
@@ -917,22 +781,15 @@
     { flag: '🇺🇿', name: '우즈베키스탄', disabled: true, status: '서비스 준비 중' }
   ];
 
-  // 2. 가격 데이터 모델
-  const services = [
-    { id: 's1', name: '서류 기본 번역료', desc: '1부당 발생하는 공인 베트남어 정식 번역료', price: 30000, category: 'translation' },
-    { id: 's2', name: '아포스티유 공증 대행료', desc: '부수 관계 없이 총합 동일 고정가 혜택 적용', price: 400000, category: 'notary' },
-    { id: 's3', name: '예방 접종 증명서 한국어 번역', desc: '입학용 기본 백신 이력 규격 번역', price: 30000, category: 'translation' }
-  ];
-
-  // 3. FAQ 항목
+  // 2. FAQ 항목
   const faqs = [
     { 
       q: '일반 대행사 대비 3배 이상 저렴할 수 있는 이유가 무엇인가요?', 
-      a: '시중의 전통적인 행정사무소나 대행업체는 의뢰인이 준비해야 하는 서류 부수(예: 졸업장, 성적표, 가족서류 등 3부)가 증가할수록 각각의 서류에 공증료를 개별 부과하여 청구비용이 150만원을 훌쩍 넘기기 일쑤입니다. 반면 저희는 서류의 양이 많아져도 기본 행정 업무 처리를 단일 고정 비용(40만원)으로 동결 처리하여, 부수가 증가할수록 최대 3배 이상 저렴해지게 설계되었습니다.' 
+      a: '시중의 전통적인 행정사무소나 대행업체는 의뢰인이 준비해야 하는 서류 부수(예: 졸업장, 성적표, 가족서류 등 3부)가 증가할수록 각각의 서류에 공증료를 개별 부과하여 청구비용이 150만원을 훌쩍 넘기기 일쑤입니다. 반면 저희는 서류의 양이 많아져도 기본 행정 업무 처리를 단일 고정 비용으로 동결 처리하여, 부수가 증가할수록 최대 3배 이상 저렴해지게 설계되었습니다.' 
     },
     { 
-      q: '공증 비용이 부수에 상관없이 평생 40만원인가요?', 
-      a: '네, 맞습니다. 당사에 신청하시는 아포스티유 공증 대행 기본 고정 요금은 1부이든 4부이든 400,000원으로 동일합니다. 단, 서류별 페이지 분량에 따라 실비 부과되는 한글 번역료(장당 3만원)는 수량만큼 추가 계산됩니다.' 
+      q: '모든 절차가 통합 패키지로 진행되나요?', 
+      a: '네, 맞습니다. 당사에 신청하시는 서류 패키지(490,000원)는 학교 입학에 필요한 모든 서류의 맞춤 번역과 아포스티유 공증 대행을 포함하고 있습니다. 상담 시 필요한 서류 수량을 확인한 후 최종 확정해 드립니다.' 
     },
     { 
       q: '서류 공증 및 처리 완료까지 기간이 얼마나 소요되나요?', 
@@ -944,7 +801,7 @@
     }
   ];
 
-  // 4. 국가 탭 초기화 및 렌더링
+  // 3. 국가 탭 초기화 및 렌더링
   function initCountryGrid() {
     const grid = document.getElementById('countryGrid');
     grid.innerHTML = '';
@@ -970,7 +827,6 @@
       grid.appendChild(card);
     });
 
-    // 기본적으로 베트남(첫 번째 활성 국가)을 자동으로 누른 효과 제공
     const activeIdx = countries.findIndex(c => !c.disabled);
     if (activeIdx !== -1) {
       setTimeout(() => {
@@ -1021,66 +877,7 @@
     document.getElementById('countryDetail').style.display = 'block';
   }
 
-  // 5. 신청 폼 내 서비스 목록 및 실시간 가격 계산 초기화
-  function initServiceCheckboxes() {
-    const container = document.getElementById('serviceCheckboxList');
-    container.innerHTML = '';
-    
-    services.forEach(s => {
-      const item = document.createElement('label');
-      item.className = 'checkbox-item';
-      
-      // 베트남은 아포스티유 공증 대행이 필수적이므로, UI 편의상 체크 권장되도록 구성
-      const recommended = s.id === 's2' ? 'checked' : '';
-      
-      item.innerHTML = `
-        <input type="checkbox" value="${s.price}" data-id="${s.id}" data-name="${s.name}" ${recommended} onchange="calculateRealtimePrice()">
-        <div class="checkbox-item-info">
-          <div class="checkbox-item-name">${s.name}</div>
-          <div class="checkbox-item-desc">${s.desc}</div>
-        </div>
-        <div class="checkbox-price">${s.price.toLocaleString()}원</div>
-      `;
-      container.appendChild(item);
-    });
-    
-    calculateRealtimePrice();
-  }
-
-  // 실시간 예상 견적 연산 및 표기
-  function calculateRealtimePrice() {
-    const checkboxes = document.querySelectorAll('#serviceCheckboxList input[type="checkbox"]');
-    const summaryRows = document.getElementById('summaryRows');
-    const totalPriceEl = document.getElementById('totalPrice');
-    
-    let total = 0;
-    let selectedRowsHtml = '';
-    
-    checkboxes.forEach(chk => {
-      if (chk.checked) {
-        const name = chk.getAttribute('data-name');
-        const price = parseInt(chk.value);
-        total += price;
-        
-        selectedRowsHtml += `
-          <div class="price-summary-row">
-            <span>${name}</span>
-            <span>${price.toLocaleString()}원</span>
-          </div>
-        `;
-      }
-    });
-    
-    if (selectedRowsHtml === '') {
-      summaryRows.innerHTML = `<div style="font-size: 12px; color: rgba(255, 255, 255, 0.6); text-align: center; padding: 10px 0;">서비스 항목을 한 개 이상 선택해 주세요.</div>`;
-    } else {
-      summaryRows.innerHTML = selectedRowsHtml;
-    }
-    
-    totalPriceEl.textContent = total.toLocaleString() + '원';
-  }
-
-  // 6. FAQ 동적 구성
+  // 4. FAQ 동적 구성
   function initFAQ() {
     const faqContainer = document.getElementById('faqList');
     faqContainer.innerHTML = '';
@@ -1117,7 +914,7 @@
     }
   }
 
-  // 7. 글로벌 탭 이동 스위치
+  // 5. 글로벌 탭 이동 스위치
   function showTab(tabName, btnElement) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1127,7 +924,6 @@
     if (btnElement) {
       btnElement.classList.add('active');
     } else {
-      // 프로그램적 호출일 경우 해당 버튼을 매칭하여 활성화 처리
       const buttons = document.querySelectorAll('.tab-btn');
       for (let btn of buttons) {
         if (btn.getAttribute('onclick').includes(`'${tabName}'`)) {
@@ -1136,17 +932,15 @@
         }
       }
     }
-    
-    // 모바일 탭 이동 시 상단 스크롤 동기화
     window.scrollTo({ top: document.querySelector('.hero').offsetHeight - 50, behavior: 'smooth' });
   }
 
-  // 대행신청 탭으로 원터치 전환 및 스크롤
+  // 상담신청 탭으로 원터치 전환 및 스크롤
   function goToApplyTab() {
     showTab('apply', null);
   }
 
-  // 8. 폼 제출 프로세스 (구글 폼 백엔드 연동 및 발행국가 전송 삭제 버전)
+  // 6. 폼 제출 프로세스 (서비스 항목 체크 관련 부분 삭제)
   function submitForm() {
     const name = document.getElementById('f_name').value.trim();
     const phone = document.getElementById('f_phone').value.trim();
@@ -1158,41 +952,23 @@
       alert('이름, 연락처, 그리고 신청 국가는 필수 사항입니다. 정확한 상담을 위해 꼭 입력 부탁드립니다.');
       return;
     }
-    
-    // 체크된 서비스 항목 목록 수집
-    const checkboxes = document.querySelectorAll('#serviceCheckboxList input[type="checkbox"]');
-    let selectedServices = [];
-    checkboxes.forEach(chk => {
-      if (chk.checked) {
-        selectedServices.push(chk.getAttribute('data-name'));
-      }
-    });
-    const servicesText = selectedServices.join(', ');
 
-    // 구글 폼 수집 주소
     const googleFormUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScsp0Fo4PeU-mXocxD4AV33w4UNWkUvKfY7U6NiGnE7wLdqHQ/formResponse";
     
     const formData = new FormData();
-    
-    // [완전 교정] 수집할 필요가 없는 발행국가 변수(country) 전송을 아예 제거했습니다.
-    // entry.51810517 자리에 사용자가 직접 쓴 요청사항 및 비고(memo) 내용이 들어가 정상 매칭됩니다.
     formData.append("entry.1924173721", name);          // 1. 보호자 성함
     formData.append("entry.436306185", phone);           // 2. 연락처
-    formData.append("entry.51810517", memo);             // 3. 요청사항 및 비고 (memo 매칭 완료)
+    formData.append("entry.51810517", memo);             // 3. 요청사항 및 비고
     
-    // 만약 자녀나이나 서비스 항목에 대해서 구글 폼의 질문 숫자를 찾으셨다면 아래 숫자 부분을 수정해 주세요.
-    // 구글 폼에 질문을 안 만드셨다면 아래 2줄은 그냥 두시거나 삭제하셔도 무방합니다.
+    // 만약 자녀나이에 대해서 구글 폼의 질문 숫자를 찾으셨다면 아래 숫자 부분을 수정해 주세요.
     formData.append("entry.자녀나이_ID_확인필요", school);        
-    formData.append("entry.서비스항목_ID_확인필요", servicesText);  
 
-    // 구글 폼 데이터 비동기 제출 실행
     fetch(googleFormUrl, {
       method: "POST",
       mode: "no-cors", 
       body: formData
     })
     .then(() => {
-      // 성공 화면 화면 전환
       document.getElementById('applyForm').style.display = 'none';
       document.getElementById('successScreen').style.display = 'block';
     })
@@ -1202,23 +978,13 @@
     });
   }
 
-  // 폼 리셋 기능
+  // 폼 리셋 기능 (항목 체크 로직 삭제)
   function resetForm() {
     document.getElementById('f_name').value = '';
     document.getElementById('f_phone').value = '';
     document.getElementById('f_school').value = '';
     document.getElementById('f_memo').value = '';
     
-    const checkboxes = document.querySelectorAll('#serviceCheckboxList input[type="checkbox"]');
-    checkboxes.forEach(chk => {
-      if (chk.getAttribute('data-id') === 's2') {
-        chk.checked = true; // 권장 기본값 세팅
-      } else {
-        chk.checked = false;
-      }
-    });
-    
-    calculateRealtimePrice();
     document.getElementById('applyForm').style.display = 'block';
     document.getElementById('successScreen').style.display = 'none';
   }
@@ -1226,8 +992,8 @@
   // 윈도우 로딩과 동시에 초기 구성 호출
   window.onload = function() {
     initCountryGrid();
-    initServiceCheckboxes();
     initFAQ();
   };
 </script>
+</body>
 </html>

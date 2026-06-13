@@ -215,3 +215,143 @@
       transition: all 0.15s ease-in-out;
       text-align: center;
       position: relative;
+    }
+    .country-card.active {
+      border-color: var(--color-primary);
+      background-color: var(--color-primary-light);
+    }
+
+    /* 입력창 및 레이블 스타일 */
+    .input-group {
+      margin-bottom: 1.25rem;
+    }
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-text-main);
+      margin-bottom: 6px;
+    }
+    .input-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-md);
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--color-text-main);
+      outline: none;
+    }
+    .input-control:focus {
+      border-color: var(--color-primary);
+    }
+    
+    /* 제출 버튼 */
+    .btn-submit {
+      width: 100%;
+      background: var(--color-primary);
+      color: #ffffff;
+      border: none;
+      padding: 14px;
+      border-radius: var(--border-radius-lg);
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(29, 158, 117, 0.2);
+      transition: background 0.2s;
+    }
+    .btn-submit:hover {
+      background: var(--color-primary-dark);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="site-wrap">
+    <div class="hero">
+      <div class="hero-badge">BEST SERVICE</div>
+      <h1>베트남 학교 입학 서류<br>아포스티유 공증 대행</h1>
+      <p>복잡하고 까다로운 베트남 입학/비자 서류, 전문가가 원스톱으로 가장 쉽고 빠르게 처리해 드립니다.</p>
+      
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="num">99.8%</div>
+          <div class="label">비자 승인율</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">3,500+</div>
+          <div class="label">누적 서류 처리</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-nav">
+      <button class="tab-btn active">신청하기</button>
+    </div>
+
+    <div class="section active">
+      
+      <div class="savings-banner">
+        <i class="ti ti-info-circle"></i>
+        <div class="savings-banner-text">
+          <h4>중도입국청소년 베트남 서류 전문</h4>
+          <p>학력인증, 번역공증, 영사확인까지 복잡한 과정을 한 번에 해결해 드립니다.</p>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2>대행 서비스 신청서</h2>
+        <p>아래 정보를 입력해 주시면 확인 후 신속하게 연락드리겠습니다.</p>
+      </div>
+
+      <form id="apostilleForm" action="https://docs.google.com/forms/d/e/1FAIpQLScsp0Fo4PeU-mXocxD4AV33w4UNWkUvKfY7U6NiGnE7wLdqHQ/formResponse" method="POST" target="hidden_iframe">
+        
+        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px;">대상 국가</label>
+        <div class="country-grid">
+          <div class="country-card active">
+            <strong style="color: var(--color-primary-dark);">베트남</strong>
+            <p style="font-size: 11px; color: var(--color-primary); margin-top: 4px; font-weight:700;">추천 서비스</p>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>보호자 (혹은 신청자 성함) <span style="color:red;">*</span></label>
+          <input type="text" name="entry.1924173721" class="input-control" placeholder="실명을 입력해 주세요" required>
+        </div>
+
+        <div class="input-group">
+          <label>연락처 <span style="color:red;">*</span></label>
+          <input type="tel" name="entry.436306185" class="input-control" placeholder="ex) 010-0000-0000" required>
+        </div>
+
+        <div class="input-group">
+          <label>요청사항 및 비고</label>
+          <textarea name="entry.51810517" class="input-control" rows="4" placeholder="추가적인 요청사항이나 문의 내용을 적어주세요." style="resize: none;"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">신청서 제출하기</button>
+      </form>
+    </div>
+  </div>
+
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+  <script>
+    let submitted = false;
+
+    // 폼이 제출될 때 상태 트래킹 시동
+    document.getElementById('apostilleForm').addEventListener('submit', function() {
+      submitted = true;
+    });
+
+    // 백그라운드 iframe에 데이터가 꽂히면 즉시 반응하여 알림을 띄웁니다
+    document.getElementById('hidden_iframe').onload = function() {
+      if (submitted) {
+        alert('아포스티유 공증 대행 신청이 정상적으로 접수되었습니다. 담당자가 곧 연락드리겠습니다!');
+        // 새로고침하여 폼 초기화
+        window.location.reload();
+      }
+    };
+  </script>
+</body>
+</html>

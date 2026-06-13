@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>베트남 학교 입학 서류 아포스티유 공증 대행 서비스</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <!-- Noto Sans KR (한국어) & Roboto (베트남어 성조 지원용) -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
   
   <style>
     /* 기본 테마 및 디자인 토큰 */
@@ -23,14 +24,11 @@
       --border-radius-md: 8px;
     }
 
-    * { 
-      box-sizing: border-box; 
-      margin: 0; 
-      padding: 0; 
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* 베트남어 호환을 위해 Roboto 병기 */
     body { 
-      font-family: 'Noto Sans KR', sans-serif; 
+      font-family: 'Noto Sans KR', 'Roboto', sans-serif; 
       background-color: var(--color-bg-light);
       color: var(--color-text-main);
       line-height: 1.5;
@@ -46,796 +44,461 @@
       position: relative;
     }
 
+    /* 다국어 토글 스위치 UI */
+    .lang-switcher {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 4px;
+      z-index: 10;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: #ffffff;
+      color: var(--color-primary-dark);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
     /* Hero 섹션 */
     .hero {
       background: var(--color-primary-dark);
       color: #ffffff;
-      padding: 3rem 1.5rem 3.5rem;
+      padding: 3.5rem 1.5rem 3.5rem;
       position: relative;
       overflow: hidden;
     }
     .hero::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -80px;
-      width: 320px; height: 320px;
-      border-radius: 50%;
-      background: rgba(93, 202, 165, 0.1);
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -40px; left: 40px;
-      width: 180px; height: 180px;
-      border-radius: 50%;
-      background: rgba(93, 202, 165, 0.05);
+      content: ''; position: absolute; top: -60px; right: -80px;
+      width: 320px; height: 320px; border-radius: 50%; background: rgba(93, 202, 165, 0.1);
     }
     .hero-badge {
-      display: inline-block;
-      background: rgba(93, 202, 165, 0.2);
-      color: var(--color-accent);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 20px;
-      margin-bottom: 1rem;
-      letter-spacing: 0.05em;
+      display: inline-block; background: rgba(93, 202, 165, 0.2); color: var(--color-accent);
+      font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 1rem;
     }
-    .hero h1 {
-      font-size: 25px;
-      font-weight: 700;
-      line-height: 1.35;
-      margin-bottom: 0.75rem;
-      color: #ffffff;
-    }
-    .hero p {
-      font-size: 14px;
-      line-height: 1.6;
-      color: rgba(255, 255, 255, 0.75);
-      max-width: 520px;
-    }
-    .hero-stats {
-      display: flex;
-      gap: 1.25rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-    .hero-stat {
-      background: rgba(255, 255, 255, 0.08);
-      padding: 10px 14px;
-      border-radius: var(--border-radius-md);
-      flex: 1;
-      min-width: 130px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .hero-stat .num {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--color-accent);
-    }
-    .hero-stat .label {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.6);
-      margin-top: 2px;
-    }
+    .hero h1 { font-size: 25px; font-weight: 700; line-height: 1.35; margin-bottom: 0.75rem; }
+    .hero p { font-size: 14px; line-height: 1.6; color: rgba(255, 255, 255, 0.75); }
+    .hero-stats { display: flex; gap: 1.25rem; margin-top: 2rem; flex-wrap: wrap; }
+    .hero-stat { background: rgba(255, 255, 255, 0.08); padding: 10px 14px; border-radius: var(--border-radius-md); flex: 1; min-width: 130px; border: 1px solid rgba(255, 255, 255, 0.1); }
+    .hero-stat .num { font-size: 18px; font-weight: 700; color: var(--color-accent); }
+    .hero-stat .label { font-size: 11px; color: rgba(255, 255, 255, 0.6); margin-top: 2px; }
 
     /* 네비게이션 탭 */
-    .tab-nav {
-      display: flex;
-      border-bottom: 1px solid var(--color-border);
-      background: #ffffff;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .tab-btn {
-      flex: 1;
-      padding: 14px 10px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--color-text-muted);
-      background: none;
-      border: none;
-      border-bottom: 3px solid transparent;
-      cursor: pointer;
-      text-align: center;
-      transition: color 0.15s, border-color 0.15s;
-    }
-    .tab-btn.active {
-      color: var(--color-primary-dark);
-      font-weight: 700;
-      border-bottom-color: var(--color-primary);
-    }
+    .tab-nav { display: flex; border-bottom: 1px solid var(--color-border); background: #ffffff; position: sticky; top: 0; z-index: 100; }
+    .tab-btn { flex: 1; padding: 14px 4px; font-size: 12.5px; font-weight: 500; color: var(--color-text-muted); background: none; border: none; border-bottom: 3px solid transparent; cursor: pointer; text-align: center; transition: 0.15s; }
+    .tab-btn i { display: block; margin-bottom: 3px; font-size: 20px; line-height: 1; }
+    .tab-btn.active { color: var(--color-primary-dark); font-weight: 700; border-bottom-color: var(--color-primary); }
 
     /* 본문 섹션 */
-    .section { 
-      display: none; 
-      padding: 1.5rem; 
-    }
-    .section.active { 
-      display: block; 
-    }
+    .section { display: none; padding: 1.5rem; }
+    .section.active { display: block; }
+    .section-header { margin-bottom: 1.25rem; }
+    .section-header h2 { font-size: 18px; font-weight: 700; color: var(--color-primary-dark); margin-bottom: 0.4rem; }
+    .section-header p { font-size: 13px; color: var(--color-text-muted); line-height: 1.5; }
 
-    .section-header {
-      margin-bottom: 1.25rem;
-    }
-    .section-header h2 { 
-      font-size: 18px; 
-      font-weight: 700; 
-      color: var(--color-primary-dark); 
-      margin-bottom: 0.4rem; 
-    }
-    .section-header p { 
-      font-size: 13px; 
-      color: var(--color-text-muted); 
-      line-height: 1.5; 
-    }
+    /* 기타 UI 요소 */
+    .savings-banner { background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CD 100%); border: 1px solid #FFEBAA; border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 1.5rem; display: flex; gap: 12px; }
+    .savings-banner i { font-size: 24px; color: #D39E00; }
+    .savings-banner-text h4 { font-size: 14px; font-weight: 700; color: #856404; margin-bottom: 4px; }
+    .savings-banner-text p { font-size: 12px; color: #664D03; line-height: 1.5; }
 
-    /* 비교 안내 배너 */
-    .savings-banner {
-      background: linear-gradient(135deg, #FFF9E6 0%, #FFF3CD 100%);
-      border: 1px solid #FFEBAA;
-      border-radius: var(--border-radius-lg);
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-    .savings-banner i {
-      font-size: 24px;
-      color: #D39E00;
-      margin-top: 2px;
-    }
-    .savings-banner-text h4 {
-      font-size: 14px;
-      font-weight: 700;
-      color: #856404;
-      margin-bottom: 4px;
-    }
-    .savings-banner-text p {
-      font-size: 12px;
-      color: #664D03;
-      line-height: 1.5;
-    }
+    .country-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 1.5rem; }
+    .country-card { background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--border-radius-lg); padding: 16px 12px; cursor: pointer; text-align: center; transition: 0.15s; }
+    .country-card.selected { border: 2px solid var(--color-primary); background: var(--color-primary-light); }
+    .country-card.disabled { opacity: 0.6; cursor: not-allowed; background: #F7FAFC; }
+    .country-flag { font-size: 28px; margin-bottom: 6px; }
+    .country-name { font-size: 14px; font-weight: 700; color: var(--color-text-main); }
+    .country-status { font-size: 11px; color: var(--color-text-muted); margin-top: 3px; }
 
-    /* 국가 선택 그리드 */
-    .country-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 1.5rem;
-    }
-    .country-card {
-      background: #ffffff;
-      border: 1px solid var(--color-border);
-      border-radius: var(--border-radius-lg);
-      padding: 16px 12px;
-      cursor: pointer;
-      transition: all 0.15s ease-in-out;
-      text-align: center;
-      position: relative;
-    }
-    .country-card:hover:not(.disabled) { 
-      border-color: var(--color-primary); 
-      background: #FAFDFB; 
-    }
-    .country-card.selected { 
-      border: 2px solid var(--color-primary); 
-      background: var(--color-primary-light); 
-    }
-    .country-card.disabled { 
-      opacity: 0.6; 
-      cursor: not-allowed; 
-      background: #F7FAFC;
-    }
-    .country-flag { 
-      font-size: 28px; 
-      margin-bottom: 6px; 
-    }
-    .country-name { 
-      font-size: 14px; 
-      font-weight: 700; 
-      color: var(--color-text-main); 
-    }
-    .country-status { 
-      font-size: 11px; 
-      color: var(--color-text-muted); 
-      margin-top: 3px; 
-    }
-    .country-card.disabled .country-status {
-      color: #E24B4A;
-      font-weight: 500;
-    }
-
-    /* 서류 상세 내역 */
-    .doc-info-box {
-      background: var(--color-bg-light);
-      border-radius: var(--border-radius-lg);
-      border: 1px solid var(--color-border);
-      padding: 1.25rem;
-      margin-top: 1rem;
-    }
-    .doc-info-box h3 {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      margin-bottom: 1rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--color-border);
-    }
-    .doc-list { 
-      list-style: none; 
-    }
-    .doc-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--color-border);
-      font-size: 13px;
-    }
-    .doc-list li:last-child { 
-      border-bottom: none; 
-    }
-    .doc-item-info { 
-      flex: 1; 
-    }
-    .doc-item-name { 
-      font-weight: 700; 
-      color: var(--color-text-main);
-      margin-bottom: 3px; 
-    }
-    .doc-item-desc { 
-      font-size: 12px; 
-      color: var(--color-text-muted); 
-      line-height: 1.5; 
-    }
-    .doc-item-tags { 
-      display: flex; 
-      gap: 4px; 
-      margin-top: 6px; 
-      flex-wrap: wrap; 
-    }
-    .doc-tag {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 500;
-      padding: 2px 8px;
-      border-radius: 10px;
-    }
+    .doc-info-box { background: var(--color-bg-light); border-radius: var(--border-radius-lg); border: 1px solid var(--color-border); padding: 1.25rem; margin-top: 1rem; }
+    .doc-info-box h3 { font-size: 15px; font-weight: 700; color: var(--color-primary-dark); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--color-border); }
+    .doc-list { list-style: none; }
+    .doc-list li { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--color-border); font-size: 13px; }
+    .doc-item-name { font-weight: 700; margin-bottom: 3px; }
+    .doc-item-desc { font-size: 12px; color: var(--color-text-muted); }
+    .doc-tag { display: inline-block; font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 10px; margin-top: 6px; margin-right: 4px; }
     .tag-translate { background: #E1F5EE; color: #0F6E56; }
     .tag-apostille { background: #FDE8E8; color: #9B1C1C; }
 
-    .notice-box {
-      background: #EDF2F7;
-      border-radius: var(--border-radius-md);
-      padding: 12px 14px;
-      margin-top: 1rem;
-      font-size: 12.5px;
-      color: var(--color-text-main);
-      line-height: 1.6;
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-    .notice-box i {
-      font-size: 16px;
-      color: var(--color-primary);
-      margin-top: 2px;
-    }
+    .notice-box { background: #EDF2F7; border-radius: var(--border-radius-md); padding: 12px 14px; margin-top: 1rem; font-size: 12.5px; color: var(--color-text-main); display: flex; gap: 8px; }
 
-    /* 비용 안내 테이블/카드 */
-    .compare-table {
-      background: #ffffff;
-      border: 1px solid var(--color-border);
-      border-radius: var(--border-radius-lg);
-      padding: 1.25rem;
-      margin-bottom: 1.5rem;
-    }
-    .compare-table-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .compare-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--color-border);
-      font-size: 13px;
-    }
-    .compare-row:last-child { 
-      border-bottom: none; 
-    }
-    .compare-label { 
-      color: var(--color-text-muted); 
-    }
-    .compare-value { 
-      font-weight: 700; 
-    }
-    .compare-value.old { 
-      color: #E53E3E; 
-      text-decoration: line-through; 
-    }
-    .compare-value.new { 
-      color: var(--color-primary); 
-      font-size: 15px;
-    }
+    .compare-table { background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 1.5rem; }
+    .compare-table-title { font-size: 14px; font-weight: 700; color: var(--color-primary-dark); margin-bottom: 1rem; }
+    .compare-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--color-border); font-size: 13px; }
+    .compare-value { font-weight: 700; text-align: right; }
+    .compare-value.old { color: #E53E3E; text-decoration: line-through; }
+    .compare-value.new { color: var(--color-primary); font-size: 14px; }
 
-    .price-grid {
-      display: grid;
-      grid-template-columns: 1fr; /* 패키지 1개로 통합 */
-      gap: 12px;
-      margin-bottom: 1.5rem;
-    }
-    .price-card {
-      background: #ffffff;
-      border: 1px solid var(--color-border);
-      border-radius: var(--border-radius-lg);
-      padding: 1.5rem;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-    }
-    .price-card.featured { 
-      border: 2px solid var(--color-primary); 
-    }
-    .price-card-badge {
-      position: absolute;
-      top: -11px; right: 14px;
-      background: var(--color-primary);
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 12px;
-      border-radius: 20px;
-    }
-    .price-card-title { 
-      font-size: 16px; 
-      font-weight: 700; 
-      color: var(--color-text-main); 
-      margin-bottom: 0.5rem; 
-    }
-    .price-card-price { 
-      font-size: 26px; 
-      font-weight: 700; 
-      color: var(--color-primary-dark); 
-      margin-bottom: 0.25rem; 
-    }
-    .price-card-unit { 
-      font-size: 12px; 
-      color: var(--color-text-muted); 
-      margin-bottom: 1rem; 
-    }
-    .price-card-items { 
-      list-style: none; 
-      font-size: 13px; 
-      color: var(--color-text-muted); 
-      margin-top: auto;
-    }
-    .price-card-items li { 
-      padding: 6px 0; 
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .price-card-items li::before { 
-      content: '✓'; 
-      color: var(--color-primary);
-      font-weight: bold;
-    }
+    .price-card { background: #ffffff; border: 2px solid var(--color-primary); border-radius: var(--border-radius-lg); padding: 1.5rem; position: relative; margin-bottom: 1.5rem;}
+    .price-card-badge { position: absolute; top: -11px; right: 14px; background: var(--color-primary); color: #ffffff; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+    .price-card-title { font-size: 16px; font-weight: 700; margin-bottom: 0.5rem; }
+    .price-card-price { font-size: 24px; font-weight: 700; color: var(--color-primary-dark); margin-bottom: 0.25rem; }
+    .price-card-unit { font-size: 12px; color: var(--color-text-muted); margin-bottom: 1rem; }
+    .price-card-items { list-style: none; font-size: 13px; color: var(--color-text-muted); }
+    .price-card-items li { padding: 6px 0; display: flex; gap: 6px; }
+    .price-card-items li::before { content: '✓'; color: var(--color-primary); font-weight: bold; }
 
     /* 신청 폼 */
-    .form-section-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      margin: 1.5rem 0 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      border-bottom: 1px solid var(--color-border);
-      padding-bottom: 6px;
-    }
-    .form-section-title i { 
-      font-size: 18px; 
-      color: var(--color-primary); 
-    }
+    .form-section-title { font-size: 14px; font-weight: 700; color: var(--color-primary-dark); margin: 1.5rem 0 0.75rem; border-bottom: 1px solid var(--color-border); padding-bottom: 6px; }
+    .form-label { font-size: 12px; font-weight: 700; margin-bottom: 6px; display: block; }
+    .form-label span.req { color: #E53E3E; }
+    select, input[type="text"], input[type="tel"], textarea { width: 100%; border: 1px solid var(--color-border); border-radius: var(--border-radius-md); padding: 10px 12px; font-size: 13.5px; margin-bottom: 1rem; font-family: inherit; }
+    .submit-btn { width: 100%; background: var(--color-primary); color: #ffffff; border: none; border-radius: var(--border-radius-lg); padding: 14px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.15s; }
+    .submit-btn:hover { background: var(--color-primary-dark); }
 
-    .form-row { 
-      margin-bottom: 1rem; 
-    }
-    .form-label { 
-      font-size: 12px; 
-      font-weight: 700;
-      color: var(--color-text-main); 
-      margin-bottom: 6px; 
-      display: block; 
-    }
-    .form-label span.req { 
-      color: #E53E3E; 
-      margin-left: 2px; 
-    }
-    
-    select, input[type="text"], input[type="tel"], textarea {
-      width: 100%;
-      border: 1px solid var(--color-border);
-      border-radius: var(--border-radius-md);
-      padding: 10px 12px;
-      font-size: 13.5px;
-      background: #ffffff;
-      color: var(--color-text-main);
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-    select:focus, input[type="text"]:focus, input[type="tel"]:focus, textarea:focus {
-      border-color: var(--color-primary);
-    }
-    textarea { 
-      height: 90px; 
-      resize: vertical; 
-    }
-
-    .submit-btn {
-      width: 100%;
-      background: var(--color-primary);
-      color: #ffffff;
-      border: none;
-      border-radius: var(--border-radius-lg);
-      padding: 14px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 1.5rem;
-      font-family: inherit;
-      transition: background 0.15s;
-    }
-    .submit-btn:hover { 
-      background: var(--color-primary-dark); 
-    }
-
-    /* 자주 묻는 질문 */
-    .faq-item {
-      border-bottom: 1px solid var(--color-border);
-    }
-    .faq-q {
-      padding: 16px 4px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: var(--color-text-main);
-    }
-    .faq-q i { 
-      font-size: 18px; 
-      color: var(--color-text-muted); 
-      transition: transform 0.2s; 
-    }
-    .faq-a {
-      display: none;
-      font-size: 13px;
-      color: var(--color-text-muted);
-      line-height: 1.7;
-      padding: 0 4px 16px;
-    }
-    .faq-item.open .faq-a { 
-      display: block; 
-    }
-    .faq-item.open .faq-q i { 
-      transform: rotate(180deg); 
-      color: var(--color-primary);
-    }
-
-    /* 완료 화면 */
-    .success-screen {
-      display: none;
-      text-align: center;
-      padding: 3.5rem 1.5rem;
-    }
-    .success-icon {
-      width: 68px; height: 68px;
-      background: var(--color-primary-light);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      font-size: 32px;
-      color: var(--color-primary);
-    }
-    .success-screen h3 {
-      font-size: 19px;
-      font-weight: 700;
-      color: var(--color-primary-dark);
-      margin-bottom: 0.75rem;
-    }
-    .success-screen p {
-      font-size: 14px;
-      color: var(--color-text-muted);
-      line-height: 1.6;
-    }
-    .success-guide {
-      background: var(--color-bg-light);
-      border-radius: var(--border-radius-lg);
-      padding: 1.25rem;
-      margin: 1.75rem 0;
-      text-align: left;
-      font-size: 13px;
-      line-height: 1.7;
-      border: 1px solid var(--color-border);
-    }
-    .success-guide strong {
-      color: var(--color-text-main);
-      display: block;
-      margin-bottom: 6px;
-    }
-    .reset-btn {
-      background: #ffffff;
-      border: 1px solid var(--color-border);
-      border-radius: var(--border-radius-md);
-      padding: 10px 24px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      color: var(--color-text-main);
-      font-family: inherit;
-      transition: background 0.1s;
-    }
-    .reset-btn:hover {
-      background: var(--color-bg-light);
-    }
+    /* FAQ 및 완료화면 */
+    .faq-item { border-bottom: 1px solid var(--color-border); }
+    .faq-q { padding: 16px 4px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; }
+    .faq-a { display: none; font-size: 13px; color: var(--color-text-muted); line-height: 1.7; padding: 0 4px 16px; }
+    .faq-item.open .faq-a { display: block; }
+    .success-screen { display: none; text-align: center; padding: 3.5rem 1.5rem; }
+    .success-icon { width: 68px; height: 68px; background: var(--color-primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 32px; color: var(--color-primary); }
+    .success-guide { background: var(--color-bg-light); border-radius: var(--border-radius-lg); padding: 1.25rem; margin: 1.75rem 0; text-align: left; font-size: 13px; border: 1px solid var(--color-border); }
   </style>
 </head>
 <body>
 
 <div class="site-wrap">
+  <!-- 다국어 토글 UI -->
+  <div class="lang-switcher">
+    <button class="lang-btn active" id="btn-ko" onclick="changeLanguage('ko')">🇰🇷 KO</button>
+    <button class="lang-btn" id="btn-vi" onclick="changeLanguage('vi')">🇻🇳 VN</button>
+  </div>
+
   <div class="hero">
-    <div class="hero-badge">중도입국청소년 전용 입학 지원</div>
-    <h1>번거롭고 복잡한 한국 입학 서류 준비!,<br>기존 대비 약 3배 이상 저렴하게!</h1>
-    <p>부수가 많아질수록 기하급수적으로 늘어나던 공증료 부담을 덜어드립니다. 번역부터 아포스티유 공증까지 투명하고 직관적인 원스톱 대행 서비스를 제공합니다.</p>
+    <div class="hero-badge" data-i18n="hero_badge">중도입국청소년 전용 입학 지원</div>
+    <h1 data-i18n="hero_title">번거롭고 복잡한 한국 입학 서류 준비!<br>기존 대비 약 3배 이상 저렴하게!</h1>
+    <p data-i18n="hero_desc">부수가 많아질수록 기하급수적으로 늘어나던 공증료 부담을 덜어드립니다. 번역부터 아포스티유 공증까지 투명하고 직관적인 원스톱 대행 서비스를 제공합니다.</p>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="num">약 3배 절감</div>
-        <div class="label">일반 대행사 대비 비용</div>
+        <div class="num" data-i18n="stat1_num">약 3배 절감</div>
+        <div class="label" data-i18n="stat1_lbl">일반 대행사 대비 비용</div>
       </div>
       <div class="hero-stat">
-        <div class="num">베트남 특화</div>
-        <div class="label">입학 필요서류 전담</div>
+        <div class="num" data-i18n="stat2_num">베트남 특화</div>
+        <div class="label" data-i18n="stat2_lbl">입학 필요서류 전담</div>
       </div>
       <div class="hero-stat">
-        <div class="num">신속한 대행</div>
-        <div class="label">불필요한 절차 최소화</div>
+        <div class="num" data-i18n="stat3_num">신속한 대행</div>
+        <div class="label" data-i18n="stat3_lbl">불필요한 절차 최소화</div>
       </div>
     </div>
   </div>
 
   <div class="tab-nav">
-    <button class="tab-btn active" onclick="showTab('country', this)"><i class="ti ti-world"></i> 국가별 안내</button>
-    <button class="tab-btn" onclick="showTab('price', this)"><i class="ti ti-coin-won"></i> 비용 안내</button>
-    <button class="tab-btn" onclick="showTab('apply', this)"><i class="ti ti-file-pencil"></i> 상담 신청</button>
-    <button class="tab-btn" onclick="showTab('faq', this)"><i class="ti ti-help-circle"></i> 자주 묻는 질문</button>
+    <button class="tab-btn active" onclick="showTab('country', this)">
+      <i class="ti ti-world"></i> <span data-i18n="tab_country">국가별 안내</span>
+    </button>
+    <button class="tab-btn" onclick="showTab('price', this)">
+      <i class="ti ti-coin"></i> <span data-i18n="tab_price">비용 안내</span>
+    </button>
+    <button class="tab-btn" onclick="showTab('apply', this)">
+      <i class="ti ti-file-pencil"></i> <span data-i18n="tab_apply">상담 신청</span>
+    </button>
+    <button class="tab-btn" onclick="showTab('faq', this)">
+      <i class="ti ti-help-circle"></i> <span data-i18n="tab_faq">FAQ</span>
+    </button>
   </div>
 
   <div id="tab-country" class="section active">
     <div class="section-header">
-      <h2>국가별 필요 서류 안내</h2>
-      <p>입학을 희망하는 학생의 서류 발행 국가를 선택해 주세요. 현재 베트남 서류 대행을 집중 서비스 중입니다.</p>
+      <h2 data-i18n="sec_country_title">국가별 필요 서류 안내</h2>
+      <p data-i18n="sec_country_desc">입학을 희망하는 학생의 서류 발행 국가를 선택해 주세요. 현재 베트남 서류 대행을 집중 서비스 중입니다.</p>
     </div>
-
     <div class="country-grid" id="countryGrid"></div>
-    
     <div id="countryDetail" style="display:none;">
       <div class="doc-info-box" id="docInfoBox"></div>
       <div class="notice-box" id="countryNotice"></div>
-      <button onclick="goToApplyTab()" class="submit-btn" style="margin-top: 1.25rem;">
-        무료 견적 상담 신청하기 <i class="ti ti-arrow-right"></i>
+      <button onclick="goToApplyTab()" class="submit-btn" style="margin-top: 1.25rem;" data-i18n="btn_consult_country">
+        무료 견적 상담 신청하기
       </button>
     </div>
   </div>
 
   <div id="tab-price" class="section">
     <div class="section-header">
-      <h2>합리적인 비용 테이블</h2>
-      <p>부수가 늘어날 때마다 무한 가산되던 타 대행 서비스의 틀을 깼습니다. 정직하고 저렴하게 제공합니다.</p>
+      <h2 data-i18n="sec_price_title">합리적인 비용 테이블</h2>
+      <p data-i18n="sec_price_desc">부수가 늘어날 때마다 무한 가산되던 타 대행 서비스의 틀을 깼습니다. 정직하고 저렴하게 제공합니다.</p>
     </div>
 
     <div class="savings-banner">
       <i class="ti ti-trending-down"></i>
       <div class="savings-banner-text">
-        <h4>여러 부를 준비할수록 최대 3배 이상 경제적!</h4>
-        <p>전통 대행업체들은 제출 부수에 맞춰 비례하여 비용을 청구합니다. 저희는 번역 비용 외에 공증 행정 비용을 통합 동결하여 실질 부담을 파격적으로 줄였습니다.</p>
+        <h4 data-i18n="banner_title">여러 부를 준비할수록 최대 3배 이상 경제적!</h4>
+        <p data-i18n="banner_desc">전통 대행업체들은 제출 부수에 맞춰 비례하여 비용을 청구합니다. 저희는 번역 비용 외에 공증 행정 비용을 통합 동결하여 실질 부담을 파격적으로 줄였습니다.</p>
       </div>
     </div>
 
     <div class="compare-table">
-      <div class="compare-table-title"><i class="ti ti-percentage"></i> 타 행정 서류사 vs 당사 비교 예시</div>
+      <div class="compare-table-title"><i class="ti ti-percentage"></i> <span data-i18n="compare_title">타 행정 서류사 vs 당사 비교 예시</span></div>
       <div class="compare-row">
-        <span class="compare-label">기존 업계 평균 (3부 신청 기준)</span>
-        <span class="compare-value old">약 1,500,000원 ~</span>
+        <span class="compare-label" data-i18n="compare_old_lbl">기존 업계 평균 (3부 신청 기준)</span>
+        <span class="compare-value old" data-i18n="compare_old_val">약 1,500,000원 ~</span>
       </div>
       <div class="compare-row">
-        <span class="compare-label">당사 패키지 이용 (3부 신청 기준)</span>
-        <span class="compare-value new" style="font-weight: 700;">약 490,000원 (최대 3배 이상 절감)</span>
+        <span class="compare-label" data-i18n="compare_new_lbl">당사 패키지 (3부 신청 기준)</span>
+        <span class="compare-value new" data-i18n="compare_new_val">490,000원 (최대 3배 절감)</span>
       </div>
     </div>
 
-    <div class="price-grid">
-      <div class="price-card featured">
-        <div class="price-card-badge">입학 필수 서류 올인원</div>
-        <div class="price-card-title">전체 패키지 (번역 + 공증)</div>
-        <div class="price-card-price">490,000원</div>
-        <div class="price-card-unit">입학 필수 서류 일체 통합가</div>
-        <ul class="price-card-items">
-          <li>기본 서류 번역 및 입학 목적 맞춤 검수 포함</li>
-          <li>아포스티유 공증 대행 포함</li>
-          <li>복수 부수 추가비 없음</li>
-          <li>접수부터 처리까지 원스톱</li>
-        </ul>
-      </div>
+    <div class="price-card">
+      <div class="price-card-badge" data-i18n="card_badge">입학 필수 서류 올인원</div>
+      <div class="price-card-title" data-i18n="card_title">전체 패키지 (번역 + 공증)</div>
+      <div class="price-card-price" data-i18n="card_price">490,000원</div>
+      <div class="price-card-unit" data-i18n="card_unit">입학 필수 서류 일체 통합가</div>
+      <ul class="price-card-items">
+        <li data-i18n="card_li1">기본 서류 번역 및 입학 목적 맞춤 검수 포함</li>
+        <li data-i18n="card_li2">아포스티유 공증 대행 포함</li>
+        <li data-i18n="card_li3">복수 부수 추가비 없음 (추가 비용 절대 없음)</li>
+        <li data-i18n="card_li4">접수부터 처리까지 원스톱</li>
+      </ul>
     </div>
-
-    <button onclick="goToApplyTab()" class="submit-btn">지금 간편하게 견적 상담받기</button>
+    <button onclick="goToApplyTab()" class="submit-btn" data-i18n="btn_consult_price">지금 간편하게 견적 상담받기</button>
   </div>
 
   <div id="tab-apply" class="section">
     <div id="applyForm">
       <div class="section-header">
-        <h2>무료 견적 상담 신청</h2>
-        <p>이름과 연락처를 남겨주시면, 전문 행정 매니저가 연락드려 상황에 맞는 정확한 견적과 절차를 안내해 드립니다. (결제는 상담 후 진행됩니다)</p>
+        <h2 data-i18n="sec_apply_title">무료 견적 상담 신청</h2>
+        <p data-i18n="sec_apply_desc">이름과 연락처(또는 Zalo ID)를 남겨주시면, 전문 매니저가 연락드려 안내해 드립니다.</p>
       </div>
 
-      <div class="form-section-title"><i class="ti ti-user-check"></i> 신청자 기본 정보</div>
-      <div class="form-row">
-        <label class="form-label">보호자(혹은 신청자) 성함 <span class="req">*</span></label>
-        <input type="text" id="f_name" placeholder="실명을 입력해 주세요">
-      </div>
-      <div class="form-row">
-        <label class="form-label">연락처 <span class="req">*</span></label>
-        <input type="tel" id="f_phone" placeholder="010-0000-0000">
-      </div>
-      <div class="form-row">
-        <label class="form-label">발행 및 소스 국가 <span class="req">*</span></label>
-        <select id="f_country" onchange="handleFormCountryChange(this)">
-          <option value="">국가를 선택해 주세요</option>
-          <option value="베트남" selected>베트남 (즉시 가능)</option>
-          <option value="중국" disabled>중국 (서비스 준비 중)</option>
-          <option value="필리핀" disabled>필리핀 (서비스 준비 중)</option>
-          <option value="기타" disabled>기타 (서비스 준비 중)</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label class="form-label">자녀 나이 / 학급 구분</label>
-        <select id="f_school">
-          <option value="">해당 연령대를 선택해 주세요</option>
-          <option value="초등">초등학교 입학예정</option>
-          <option value="중등">중학교 입학예정</option>
-          <option value="고등">고등학교 입학예정</option>
-        </select>
-      </div>
+      <div class="form-section-title"><i class="ti ti-user-check"></i> <span data-i18n="form_sec1">신청자 기본 정보</span></div>
+      
+      <label class="form-label"><span data-i18n="lbl_name">보호자(혹은 신청자) 성함</span> <span class="req">*</span></label>
+      <input type="text" id="f_name" data-i18n-ph="ph_name" placeholder="실명을 입력해 주세요">
+      
+      <label class="form-label"><span data-i18n="lbl_phone">연락처 (또는 Zalo ID)</span> <span class="req">*</span></label>
+      <input type="tel" id="f_phone" data-i18n-ph="ph_phone" placeholder="010-0000-0000 또는 Zalo ID">
+      
+      <label class="form-label"><span data-i18n="lbl_country">발행 및 소스 국가</span> <span class="req">*</span></label>
+      <select id="f_country">
+        <option value="베트남" selected data-i18n="opt_vn">베트남 (즉시 가능)</option>
+      </select>
 
-      <div class="form-section-title"><i class="ti ti-notebook"></i> 추가 문의 및 비고 사항</div>
-      <div class="form-row">
-        <textarea id="f_memo" placeholder="예: 준비 중인 서류의 종류나 궁금한 점을 편하게 적어주시면 상담 시 더욱 빠른 안내가 가능합니다."></textarea>
-      </div>
+      <label class="form-label"><span data-i18n="lbl_school">자녀 나이 / 학급 구분</span></label>
+      <select id="f_school">
+        <option value="" data-i18n="opt_s1">해당 연령대를 선택해 주세요</option>
+        <option value="초등" data-i18n="opt_s2">초등학교 입학예정</option>
+        <option value="중등" data-i18n="opt_s3">중학교 입학예정</option>
+        <option value="고등" data-i18n="opt_s4">고등학교 입학예정</option>
+      </select>
 
-      <button class="submit-btn" onclick="submitForm()">전문 매니저 상담 신청하기</button>
-      <p style="text-align:center; font-size:11px; color: var(--color-text-muted); margin-top: 0.8rem;">
-        상담을 위해 남겨주신 연락처는 견적 안내 용도로만 활용되며 안전하게 보호됩니다.
+      <div class="form-section-title"><i class="ti ti-notebook"></i> <span data-i18n="form_sec2">추가 문의 및 비고 사항</span></div>
+      <textarea id="f_memo" data-i18n-ph="ph_memo" placeholder="예: 준비 중인 서류의 종류나 궁금한 점을 적어주세요."></textarea>
+
+      <button class="submit-btn" onclick="submitForm()" data-i18n="btn_submit">전문 매니저 상담 신청하기</button>
+      <p style="text-align:center; font-size:11px; color: var(--color-text-muted); margin-top: 0.8rem;" data-i18n="privacy_txt">
+        상담을 위해 남겨주신 연락처는 안전하게 보호됩니다.
       </p>
     </div>
 
     <div class="success-screen" id="successScreen">
       <div class="success-icon"><i class="ti ti-circle-check"></i></div>
-      <h3>상담 신청이 정상 접수되었습니다!</h3>
-      <p>베트남 서류 전담 지원 매니저가 기재해주신 연락처로 <strong>1영업일 이내</strong>에 신속히 전화를 드려 상세 견적과 절차를 안내해 드릴 예정입니다.</p>
+      <h3 data-i18n="succ_title">상담 신청이 정상 접수되었습니다!</h3>
+      <p data-i18n="succ_desc">베트남 서류 전담 지원 매니저가 기재해주신 연락처/Zalo로 <strong>1영업일 이내</strong>에 신속히 전화를 드려 상세 견적과 절차를 안내해 드릴 예정입니다.</p>
       
       <div class="success-guide">
-        <strong>💡 원활한 상담을 위해 미리 확인해 두시면 좋은 사항들</strong>
-        · 베트남 현지 서류 원본 또는 깨끗하고 선명하게 찍은 사진파일<br>
-        · 자녀의 여권 또는 임시 신분 증명서<br>
-        · 제출해야 하는 입학 예정 학교의 세부 서류 안내문
+        <strong data-i18n="succ_g_title">💡 원활한 상담을 위해 미리 확인해 두시면 좋은 사항들</strong>
+        <span data-i18n="succ_g_1">· 베트남 현지 서류 원본 또는 선명하게 찍은 사진파일</span><br>
+        <span data-i18n="succ_g_2">· 자녀의 여권 또는 임시 신분 증명서</span><br>
+        <span data-i18n="succ_g_3">· 입학 예정 학교의 세부 서류 안내문</span>
       </div>
-
-      <button class="reset-btn" onclick="resetForm()">돌아가기 / 새로 신청하기</button>
+      <button class="submit-btn" style="background:#fff; color:var(--color-text-main); border:1px solid var(--color-border);" onclick="resetForm()" data-i18n="btn_reset">돌아가기 / 새로 신청하기</button>
     </div>
   </div>
 
   <div id="tab-faq" class="section">
     <div class="section-header">
-      <h2>무엇이든 물어보세요</h2>
-      <p>베트남 학교 입학 서류 아포스티유 공증 처리에 관해 가장 많이 묻는 내용을 투명하게 수록했습니다.</p>
+      <h2 data-i18n="sec_faq_title">무엇이든 물어보세요</h2>
+      <p data-i18n="sec_faq_desc">베트남 학교 입학 서류 아포스티유 공증 처리에 관해 가장 많이 묻는 내용을 투명하게 수록했습니다.</p>
     </div>
     <div id="faqList"></div>
   </div>
 </div>
 
 <script>
-  // 1. 국가별 기본 정보 데이터 관리 (예방접종 증명서 공증 추가)
+  /* =========================================
+     1. 다국어 (i18n) 데이터 사전 (한국어 / 베트남어)
+     ========================================= */
+  let currentLang = 'ko';
+
+  const i18nData = {
+    ko: {
+      hero_badge: "중도입국청소년 전용 입학 지원",
+      hero_title: "번거롭고 복잡한 한국 입학 서류 준비!<br>기존 대비 약 3배 이상 저렴하게!",
+      hero_desc: "부수가 많아질수록 기하급수적으로 늘어나던 공증료 부담을 덜어드립니다. 번역부터 아포스티유 공증까지 투명하고 직관적인 원스톱 대행 서비스를 제공합니다.",
+      stat1_num: "약 3배 절감", stat1_lbl: "일반 대행사 대비 비용",
+      stat2_num: "베트남 특화", stat2_lbl: "입학 필요서류 전담",
+      stat3_num: "신속한 대행", stat3_lbl: "불필요한 절차 최소화",
+      tab_country: "국가별 안내", tab_price: "비용 안내", tab_apply: "상담 신청", tab_faq: "FAQ",
+      sec_country_title: "국가별 필요 서류 안내", sec_country_desc: "입학을 희망하는 학생의 서류 발행 국가를 선택해 주세요. 현재 베트남 서류 대행을 집중 서비스 중입니다.",
+      btn_consult_country: "무료 견적 상담 신청하기",
+      sec_price_title: "합리적인 비용 테이블", sec_price_desc: "부수가 늘어날 때마다 무한 가산되던 타 대행 서비스의 틀을 깼습니다. 정직하고 저렴하게 제공합니다.",
+      banner_title: "여러 부를 준비할수록 최대 3배 이상 경제적!", banner_desc: "전통 대행업체들은 제출 부수에 맞춰 비례하여 비용을 청구합니다. 저희는 번역 비용 외에 공증 행정 비용을 통합 동결하여 실질 부담을 파격적으로 줄였습니다.",
+      compare_title: "타 행정 서류사 vs 당사 비교 예시",
+      compare_old_lbl: "기존 업계 평균 (3부 신청 기준)", compare_old_val: "약 1,500,000원 ~",
+      compare_new_lbl: "당사 패키지 (3부 신청 기준)", compare_new_val: "490,000원 (최대 3배 이상 절감)",
+      card_badge: "입학 필수 서류 올인원", card_title: "전체 패키지 (번역 + 공증)", card_price: "490,000원", card_unit: "입학 필수 서류 일체 통합가",
+      card_li1: "기본 서류 번역 및 입학 목적 맞춤 검수 포함", card_li2: "영사확인 공증 대행 포함 (베트남은 헤이그 협약 비가입국)", card_li3: "복수 부수 추가비 없음 (추가 비용 절대 없음)", card_li4: "접수부터 처리까지 원스톱",
+      btn_consult_price: "지금 간편하게 견적 상담받기",
+      sec_apply_title: "무료 견적 상담 신청", sec_apply_desc: "이름과 연락처(또는 Zalo ID)를 남겨주시면, 전문 매니저가 연락드려 상황에 맞는 정확한 견적과 절차를 안내해 드립니다.",
+      form_sec1: "신청자 기본 정보", lbl_name: "보호자(혹은 신청자) 성함", ph_name: "실명을 입력해 주세요",
+      lbl_phone: "연락처 (또는 Zalo ID)", ph_phone: "010-0000-0000 또는 Zalo ID",
+      lbl_country: "발행 및 소스 국가", opt_vn: "베트남 (즉시 가능)",
+      lbl_school: "자녀 나이 / 학급 구분", opt_s1: "해당 연령대를 선택해 주세요", opt_s2: "초등학교 입학예정", opt_s3: "중학교 입학예정", opt_s4: "고등학교 입학예정",
+      form_sec2: "추가 문의 및 비고 사항", ph_memo: "예: 준비 중인 서류의 종류나 궁금한 점을 편하게 적어주시면 상담 시 빠른 안내가 가능합니다.",
+      btn_submit: "전문 매니저 상담 신청하기", privacy_txt: "상담을 위해 남겨주신 연락처는 견적 안내 용도로만 활용되며 안전하게 보호됩니다.",
+      succ_title: "상담 신청이 정상 접수되었습니다!", succ_desc: "베트남 서류 전담 지원 매니저가 기재해주신 연락처/Zalo로 <strong>1영업일 이내</strong>에 신속히 전화를 드려 상세 견적과 절차를 안내해 드릴 예정입니다.",
+      succ_g_title: "💡 원활한 상담을 위해 미리 확인해 두시면 좋은 사항들", succ_g_1: "· 베트남 현지 서류 원본 또는 선명하게 찍은 사진파일", succ_g_2: "· 자녀의 여권 또는 임시 신분 증명서", succ_g_3: "· 입학 예정 학교의 세부 서류 안내문",
+      btn_reset: "돌아가기 / 새로 신청하기",
+      sec_faq_title: "무엇이든 물어보세요", sec_faq_desc: "베트남 학교 입학 서류 아포스티유 공증 처리에 관해 가장 많이 묻는 내용을 투명하게 수록했습니다."
+    },
+    vi: {
+      hero_badge: "Hỗ trợ nhập học cho thanh thiếu niên nhập cư",
+      hero_title: "Chuẩn bị hồ sơ nhập học Hàn Quốc?<br>Giờ đây tiết kiệm chi phí hơn 3 lần!",
+      hero_desc: "Giảm gánh nặng chi phí công chứng dù số lượng hồ sơ tăng. Chúng tôi cung cấp dịch vụ trọn gói từ dịch thuật đến công chứng Apostille minh bạch và dễ dàng.",
+      stat1_num: "Tiết kiệm 3 lần", stat1_lbl: "So với đại lý thông thường",
+      stat2_num: "Chuyên môn VN", stat2_lbl: "Chuyên trách hồ sơ nhập học",
+      stat3_num: "Xử lý nhanh gọn", stat3_lbl: "Tối thiểu hóa thủ tục",
+      tab_country: "Quốc gia", tab_price: "Bảng giá", tab_apply: "Đăng ký tư vấn", tab_faq: "Hỏi đáp",
+      sec_country_title: "Danh mục hồ sơ theo quốc gia", sec_country_desc: "Vui lòng chọn quốc gia cấp hồ sơ. Hiện tại chúng tôi đang tập trung hỗ trợ hồ sơ Việt Nam.",
+      btn_consult_country: "Đăng ký nhận báo giá miễn phí",
+      sec_price_title: "Bảng chi phí hợp lý", sec_price_desc: "Khác với các dịch vụ thu phí theo số lượng bản sao, chúng tôi cung cấp mức giá cố định, trung thực.",
+      banner_title: "Càng nhiều hồ sơ, càng tiết kiệm (hơn 3 lần)!", banner_desc: "Không phát sinh thêm chi phí dịch vụ hành chính công chứng bất kể số lượng bản sao hồ sơ bạn nộp.",
+      compare_title: "So sánh chi phí với các đơn vị khác",
+      compare_old_lbl: "Trung bình thị trường (Gói 3 bộ)", compare_old_val: "Khoảng 1,500,000 KRW ~",
+      compare_new_lbl: "Gói dịch vụ của chúng tôi (Gói 3 bộ)", compare_new_val: "490,000 KRW (Tiết kiệm gấp 3)",
+      card_badge: "Trọn gói hồ sơ nhập học", card_title: "Gói toàn diện (Dịch thuật + Công chứng)", card_price: "490,000 KRW", card_unit: "Khoảng 9.3 triệu VND (Giá trọn gói)",
+      card_li1: "Bao gồm dịch thuật và kiểm tra hồ sơ tiêu chuẩn", card_li2: "Bao gồm hợp pháp hóa lãnh sự (VN không thuộc Công ước Hague)", card_li3: "Không phát sinh chi phí khi thêm bản sao", card_li4: "Dịch vụ trọn gói từ A đến Z",
+      btn_consult_price: "Đăng ký nhận báo giá ngay",
+      sec_apply_title: "Đăng ký nhận báo giá miễn phí", sec_apply_desc: "Vui lòng để lại tên và thông tin liên lạc (hoặc Zalo ID), quản lý của chúng tôi sẽ liên hệ tư vấn chi tiết.",
+      form_sec1: "Thông tin người đăng ký", lbl_name: "Họ tên phụ huynh / người đăng ký", ph_name: "Vui lòng nhập họ tên thật",
+      lbl_phone: "Số điện thoại (Hoặc ID Zalo)", ph_phone: "SĐT Hàn Quốc hoặc ID Zalo",
+      lbl_country: "Quốc gia cấp hồ sơ", opt_vn: "Việt Nam (Hỗ trợ ngay)",
+      lbl_school: "Độ tuổi / Cấp học của con", opt_s1: "Vui lòng chọn cấp học", opt_s2: "Dự kiến nhập học Tiểu học", opt_s3: "Dự kiến nhập học THCS", opt_s4: "Dự kiến nhập học THPT",
+      form_sec2: "Câu hỏi thêm & Ghi chú", ph_memo: "Ví dụ: Các loại hồ sơ đang chuẩn bị hoặc những thắc mắc của Quý khách...",
+      btn_submit: "Gửi yêu cầu tư vấn", privacy_txt: "Thông tin liên lạc của Quý khách được bảo mật tuyệt đối.",
+      succ_title: "Đăng ký tư vấn thành công!", succ_desc: "Quản lý chuyên trách hồ sơ Việt Nam sẽ liên hệ qua SĐT hoặc Zalo của Quý khách trong vòng <strong>1 ngày làm việc</strong>.",
+      succ_g_title: "💡 Các mục cần chuẩn bị trước để tư vấn thuận lợi", succ_g_1: "· Bản gốc hồ sơ Việt Nam hoặc ảnh chụp rõ nét", succ_g_2: "· Hộ chiếu của con hoặc giấy tờ tùy thân", succ_g_3: "· Thông báo danh mục hồ sơ của trường dự định nhập học",
+      btn_reset: "Quay lại / Đăng ký mới",
+      sec_faq_title: "Hỏi đáp (FAQ)", sec_faq_desc: "Các câu hỏi thường gặp nhất về việc xử lý hồ sơ nhập học Việt Nam và công chứng Apostille."
+    }
+  };
+
+  /* 국가별 상세 정보 배열 (다국어 포함) */
   const countries = [
     { 
       flag: '🇻🇳', 
-      name: '베트남', 
       disabled: false, 
-      status: '번역·공증 가능', 
-      docs: [
-        { name: '학력 증명 서류 (졸업증명서 / 재학증명서)', desc: '베트남 현지 학교에서 정식 발급된 서류', tags: ['번역', '아포스티유 공증'] },
-        { name: '성적 증명서 (각 학년부)', desc: '국내 교육기관 편입에 필수적인 연차별 이수 성적 서류', tags: ['번역', '아포스티유 공증'] },
-        { name: '출생 증명서 (가족관계 입증 서류)', desc: '친권 관계 입증과 중도입국 청소년 신분 증명을 위한 공인 서류', tags: ['번역', '아포스티유 공증'] },
-        { name: '예방 접종 증명서', desc: '학교 보건 가이드라인 제출용 백신 이력', tags: ['번역', '아포스티유 공증'] }
-      ], 
-      notice: '베트남 전용 루트 설계 및 부수 무관 공증 정액 요금제 도입으로 타사 대비 가격 경쟁력이 매우 월등합니다.' 
+      ko: {
+        name: '베트남', status: '번역·공증 가능', notice: '베트남 전용 루트 설계 및 부수 무관 정액 요금제 도입으로 가격 경쟁력이 월등합니다. 베트남은 헤이그 협약 미가입국으로 아포스티유 대신 영사확인 공증이 적용됩니다.',
+        docs: [
+          { name: '학력 증명 서류 (Bằng tốt nghiệp / Giấy chứng nhận)', desc: '베트남 현지 학교에서 정식 발급된 서류', tags: ['번역', '영사확인 공증'] },
+          { name: '성적 증명서 (Học bạ)', desc: '국내 교육기관 편입에 필수적인 연차별 이수 성적 서류', tags: ['번역', '영사확인 공증'] },
+          { name: '출생 증명서 (Giấy khai sinh)', desc: '친권 관계 입증과 신분 증명을 위한 공인 서류', tags: ['번역', '영사확인 공증'] },
+          { name: '예방 접종 증명서 (Sổ tiêm chủng)', desc: '학교 보건 가이드라인 제출용 백신 이력', tags: ['번역', '영사확인 공증'] }
+        ]
+      },
+      vi: {
+        name: 'Việt Nam', status: 'Hỗ trợ dịch/công chứng', notice: 'Hệ thống chuyên trách dành riêng cho VN với mức giá trọn gói không giới hạn số lượng bản sao. Hồ sơ VN áp dụng Hợp pháp hóa lãnh sự (không phải Apostille). Tuyệt đối không phát sinh chi phí!',
+        docs: [
+          { name: 'Bằng tốt nghiệp / Giấy CN tốt nghiệp', desc: 'Hồ sơ học vấn chính thức cấp bởi trường học tại VN', tags: ['Dịch thuật', 'Hợp pháp hóa lãnh sự'] },
+          { name: 'Học bạ (Bảng điểm các năm)', desc: 'Hồ sơ điểm bắt buộc để chuyển tiếp vào trường học tại Hàn Quốc', tags: ['Dịch thuật', 'Hợp pháp hóa lãnh sự'] },
+          { name: 'Giấy khai sinh', desc: 'Hồ sơ bắt buộc chứng minh nhân thân và quan hệ gia đình', tags: ['Dịch thuật', 'Hợp pháp hóa lãnh sự'] },
+          { name: 'Sổ tiêm chủng', desc: 'Lịch sử tiêm vaccine nộp theo yêu cầu y tế của trường', tags: ['Dịch thuật', 'Hợp pháp hóa lãnh sự'] }
+        ]
+      }
     },
-    { flag: '🇨🇳', name: '중국', disabled: true, status: '서비스 준비 중' },
-    { flag: '🇵🇭', name: '필리핀', disabled: true, status: '서비스 준비 중' },
-    { flag: '🇲🇳', name: '몽골', disabled: true, status: '서비스 준비 중' },
-    { flag: '🇰🇭', name: '캄보디아', disabled: true, status: '서비스 준비 중' },
-    { flag: '🇺🇿', name: '우즈베키스탄', disabled: true, status: '서비스 준비 중' }
+    // 기타 국가는 비활성 상태이므로 한국어만 유지해도 무방하나 형식 통일
+    { flag: '🇨🇳', disabled: true, ko: { name: '중국', status: '서비스 준비 중' }, vi: { name: 'Trung Quốc', status: 'Đang chuẩn bị' } },
+    { flag: '🇵🇭', disabled: true, ko: { name: '필리핀', status: '서비스 준비 중' }, vi: { name: 'Philippines', status: 'Đang chuẩn bị' } }
   ];
 
-  // 2. FAQ 항목
+  /* FAQ (다국어 포함) */
   const faqs = [
     { 
-      q: '일반 대행사 대비 3배 이상 저렴할 수 있는 이유가 무엇인가요?', 
-      a: '시중의 전통적인 행정사무소나 대행업체는 의뢰인이 준비해야 하는 서류 부수(예: 졸업장, 성적표, 가족서류 등 3부)가 증가할수록 각각의 서류에 공증료를 개별 부과하여 청구비용이 150만원을 훌쩍 넘기기 일쑤입니다. 반면 저희는 서류의 양이 많아져도 기본 행정 업무 처리를 단일 고정 비용으로 동결 처리하여, 부수가 증가할수록 최대 3배 이상 저렴해지게 설계되었습니다.' 
+      ko: { q: '일반 대행사 대비 3배 이상 저렴할 수 있는 이유가 무엇인가요?', a: '부수가 증가할수록 각각의 서류에 공증료를 개별 부과하는 타사와 달리, 당사는 기본 행정 업무 처리를 단일 고정 비용으로 동결 처리하여 부수가 증가할수록 저렴해지게 설계되었습니다.' },
+      vi: { q: 'Tại sao dịch vụ lại rẻ hơn gấp 3 lần so với các đại lý khác?', a: 'Khác với các công ty tính phí riêng lẻ cho từng bản sao, chúng tôi áp dụng mức phí cố định cho quy trình hành chính, giúp bạn tiết kiệm chi phí tối đa bất kể số lượng hồ sơ nộp.' }
     },
     { 
-      q: '모든 절차가 통합 패키지로 진행되나요?', 
-      a: '네, 맞습니다. 당사에 신청하시는 서류 패키지(490,000원)는 학교 입학에 필요한 모든 서류의 맞춤 번역과 아포스티유 공증 대행을 포함하고 있습니다. 상담 시 필요한 서류 수량을 확인한 후 최종 확정해 드립니다.' 
+      ko: { q: '모든 절차가 통합 패키지로 진행되나요?', a: '네, 맞습니다. 490,000원 패키지에는 번역과 아포스티유 공증 대행이 모두 포함되어 있습니다. 상담 시 필요 수량을 확인 후 최종 확정해 드립니다.' },
+      vi: { q: 'Mọi thủ tục đều được bao trọn gói phải không?', a: 'Vâng, chính xác. Gói 490.000 KRW (Khoảng 9.3 triệu VND) đã bao gồm toàn bộ phí dịch thuật và công chứng Apostille cần thiết.' }
     },
     { 
-      q: '서류 공증 및 처리 완료까지 기간이 얼마나 소요되나요?', 
-      a: '가장 신속하고 확실한 처리를 위해 저희 서비스는 <strong>최종 완료까지 3~4주를 목표</strong>로 삼고 있습니다. 현지 관청 사정 및 상황에 맞춰 신속하게 업무가 진행되도록 최선을 다하고 있습니다.' 
+      ko: { q: '서류 공증 처리까지 기간이 얼마나 소요되나요?', a: '가장 신속하고 확실한 처리를 위해 <strong>최종 완료까지 3~4주를 목표</strong>로 삼고 있습니다.' },
+      vi: { q: 'Thời gian xử lý hồ sơ mất khoảng bao lâu?', a: 'Để đảm bảo tính chính xác, thời gian hoàn thành dự kiến là <strong>từ 3 đến 4 tuần làm việc</strong>.' }
     },
-    { 
-      q: '아포스티유 공증이라는 단어가 낯설어요. 꼭 필요한가요?', 
-      a: '해외 국가(베트남)에서 정상적으로 발급된 공식 학업 서류나 관계 증빙 서류라도, 다른 나라(대한민국)의 정부 및 학교 행정기관에서 공식 효력을 지니고 신뢰를 받으려면 국가가 서류의 위조가 아님을 증명해주는 절차가 필요합니다. 이를 "아포스티유 공증"이라고 칭하며, 국내 모든 학교 입학을 위해 반드시 제출해야 하는 최종 법률적 인증 단계입니다.'
+    {
+      ko: { q: '베트남 서류는 아포스티유 공증이 아닌가요?', a: '베트남은 헤이그 협약(아포스티유 협약) 미가입국입니다. 따라서 베트남 발급 서류에는 아포스티유 대신 <strong>영사확인 공증(Hợp pháp hóa lãnh sự)</strong> 절차가 적용됩니다. 저희 패키지에 해당 절차가 모두 포함되어 있습니다.' },
+      vi: { q: 'Hồ sơ Việt Nam có cần Apostille không?', a: 'Việt Nam chưa tham gia Công ước Hague nên không áp dụng Apostille. Thay vào đó, hồ sơ VN phải trải qua thủ tục <strong>Hợp pháp hóa lãnh sự</strong>. Dịch vụ của chúng tôi đã bao gồm toàn bộ quy trình này trong gói 490.000 KRW.' }
     }
   ];
 
-  // 3. 국가 탭 초기화 및 렌더링
+  /* =========================================
+     2. 핵심 구동 로직 (언어 변경 & 렌더링)
+     ========================================= */
+
+  function changeLanguage(lang) {
+    currentLang = lang;
+    
+    // 버튼 스타일 업데이트
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    document.getElementById('btn-' + lang).classList.add('active');
+
+    // 일반 텍스트 데이터 업데이트
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if(i18nData[lang][key]) el.innerHTML = i18nData[lang][key];
+    });
+
+    // placeholder 업데이트
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const key = el.getAttribute('data-i18n-ph');
+      if(i18nData[lang][key]) el.placeholder = i18nData[lang][key];
+    });
+
+    // 동적 생성 리스트(국가, FAQ) 재렌더링
+    initCountryGrid();
+    initFAQ();
+  }
+
   function initCountryGrid() {
     const grid = document.getElementById('countryGrid');
     grid.innerHTML = '';
     
     countries.forEach((c, index) => {
+      const langData = c[currentLang];
       const card = document.createElement('div');
+      
       if (c.disabled) {
         card.className = 'country-card disabled';
-        card.innerHTML = `
-          <div class="country-flag">${c.flag}</div>
-          <div class="country-name">${c.name}</div>
-          <div class="country-status">${c.status}</div>
-        `;
+        card.innerHTML = `<div class="country-flag">${c.flag}</div><div class="country-name">${langData.name}</div><div class="country-status">${langData.status}</div>`;
       } else {
         card.className = 'country-card';
-        card.innerHTML = `
-          <div class="country-flag">${c.flag}</div>
-          <div class="country-name">${c.name}</div>
-          <div class="country-status" style="color: var(--color-primary); font-weight:700;">${c.status}</div>
-        `;
+        card.innerHTML = `<div class="country-flag">${c.flag}</div><div class="country-name">${langData.name}</div><div class="country-status" style="color: var(--color-primary); font-weight:700;">${langData.status}</div>`;
         card.onclick = () => selectCountry(index, card);
       }
       grid.appendChild(card);
     });
 
     const activeIdx = countries.findIndex(c => !c.disabled);
-    if (activeIdx !== -1) {
-      setTimeout(() => {
-        selectCountry(activeIdx, grid.children[activeIdx]);
-      }, 100);
-    }
+    if (activeIdx !== -1) setTimeout(() => selectCountry(activeIdx, grid.children[activeIdx]), 50);
   }
 
-  // 특정 국가 정보 노출
   function selectCountry(idx, cardElement) {
     if (countries[idx].disabled) return;
     
@@ -843,55 +506,30 @@
     cardElement.classList.add('selected');
     
     const country = countries[idx];
+    const langData = country[currentLang];
     const infoBox = document.getElementById('docInfoBox');
     
-    const docsHtml = country.docs.map(doc => {
+    const docsHtml = langData.docs.map(doc => {
       const tagsHtml = doc.tags.map(tag => {
-        const cls = tag === '번역' ? 'tag-translate' : 'tag-apostille';
+        const cls = tag.includes('번역') || tag.includes('Dịch') ? 'tag-translate' : 'tag-apostille';
         return `<span class="doc-tag ${cls}">${tag}</span>`;
       }).join('');
-      
-      return `
-        <li>
-          <div class="doc-item-info">
-            <div class="doc-item-name">${doc.name}</div>
-            <div class="doc-item-desc">${doc.desc}</div>
-            <div class="doc-item-tags">${tagsHtml}</div>
-          </div>
-        </li>
-      `;
+      return `<li><div class="doc-item-info"><div class="doc-item-name">${doc.name}</div><div class="doc-item-desc">${doc.desc}</div><div>${tagsHtml}</div></div></li>`;
     }).join('');
     
-    infoBox.innerHTML = `
-      <h3>${country.flag} ${country.name} 입학 제출 필수 서류 안내</h3>
-      <ul class="doc-list">
-        ${docsHtml}
-      </ul>
-    `;
-    
-    document.getElementById('countryNotice').innerHTML = `
-      <i class="ti ti-info-circle"></i>
-      <div><strong>알아두세요: </strong>${country.notice}</div>
-    `;
-    
+    infoBox.innerHTML = `<h3>${country.flag} ${langData.name} ${currentLang === 'ko' ? '필수 서류 안내' : 'Danh mục hồ sơ'}</h3><ul class="doc-list">${docsHtml}</ul>`;
+    document.getElementById('countryNotice').innerHTML = `<i class="ti ti-info-circle"></i><div><strong>${currentLang==='ko'?'알아두세요: ':'Lưu ý: '}</strong>${langData.notice}</div>`;
     document.getElementById('countryDetail').style.display = 'block';
   }
 
-  // 4. FAQ 동적 구성
   function initFAQ() {
     const faqContainer = document.getElementById('faqList');
     faqContainer.innerHTML = '';
-    
     faqs.forEach(item => {
+      const langData = item[currentLang];
       const el = document.createElement('div');
       el.className = 'faq-item';
-      el.innerHTML = `
-        <div class="faq-q" onclick="toggleFaqAccordion(this)">
-          <span>${item.q}</span>
-          <i class="ti ti-chevron-down"></i>
-        </div>
-        <div class="faq-a">${item.a}</div>
-      `;
+      el.innerHTML = `<div class="faq-q" onclick="toggleFaqAccordion(this)"><span>${langData.q}</span><i class="ti ti-chevron-down"></i></div><div class="faq-a">${langData.a}</div>`;
       faqContainer.appendChild(el);
     });
   }
@@ -899,48 +537,28 @@
   function toggleFaqAccordion(element) {
     const item = element.parentElement;
     const isOpen = item.classList.contains('open');
-    
     document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('open'));
-    if (!isOpen) {
-      item.classList.add('open');
-    }
+    if (!isOpen) item.classList.add('open');
   }
 
-  // 기타 다른 타겟팅 국가 임시 차단 조치
-  function handleFormCountryChange(selectEl) {
-    if (selectEl.value && selectEl.value !== '베트남') {
-      alert('죄송합니다. 현재 본 프로그램은 신속한 처리를 위해 베트남 발급 서류를 우선 접수하고 있습니다. 조속히 다른 권역으로 확장하겠습니다.');
-      selectEl.value = '베트남';
-    }
-  }
-
-  // 5. 글로벌 탭 이동 스위치
   function showTab(tabName, btnElement) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    
     document.getElementById('tab-' + tabName).classList.add('active');
     
     if (btnElement) {
       btnElement.classList.add('active');
     } else {
-      const buttons = document.querySelectorAll('.tab-btn');
-      for (let btn of buttons) {
-        if (btn.getAttribute('onclick').includes(`'${tabName}'`)) {
-          btn.classList.add('active');
-          break;
-        }
-      }
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        if (btn.getAttribute('onclick').includes(`'${tabName}'`)) btn.classList.add('active');
+      });
     }
     window.scrollTo({ top: document.querySelector('.hero').offsetHeight - 50, behavior: 'smooth' });
   }
 
-  // 상담신청 탭으로 원터치 전환 및 스크롤
-  function goToApplyTab() {
-    showTab('apply', null);
-  }
+  function goToApplyTab() { showTab('apply', null); }
 
-  // 6. 폼 제출 프로세스 (서비스 항목 체크 관련 부분 삭제)
+  /* 폼 제출 (기존 구글 폼 URL 유지) */
   function submitForm() {
     const name = document.getElementById('f_name').value.trim();
     const phone = document.getElementById('f_phone').value.trim();
@@ -948,51 +566,42 @@
     const school = document.getElementById('f_school').value;
     const memo = document.getElementById('f_memo').value.trim();
     
-    if (!name || !phone || !country) {
-      alert('이름, 연락처, 그리고 신청 국가는 필수 사항입니다. 정확한 상담을 위해 꼭 입력 부탁드립니다.');
+    if (!name || !phone) {
+      alert(currentLang === 'ko' ? '이름과 연락처(Zalo)를 반드시 입력해 주세요.' : 'Vui lòng nhập tên và Số điện thoại/Zalo.');
       return;
     }
 
     const googleFormUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScsp0Fo4PeU-mXocxD4AV33w4UNWkUvKfY7U6NiGnE7wLdqHQ/formResponse";
-    
     const formData = new FormData();
-    formData.append("entry.1924173721", name);          // 1. 보호자 성함
-    formData.append("entry.436306185", phone);           // 2. 연락처
-    formData.append("entry.51810517", memo);             // 3. 요청사항 및 비고
-    
-    // 만약 자녀나이에 대해서 구글 폼의 질문 숫자를 찾으셨다면 아래 숫자 부분을 수정해 주세요.
-    formData.append("entry.자녀나이_ID_확인필요", school);        
+    formData.append("entry.1924173721", name);          
+    formData.append("entry.436306185", phone);           
+    formData.append("entry.51810517", memo);             
+    // ⚠️ 아래 entry ID를 구글 폼 실제 ID로 교체해 주세요
+    formData.append("entry.SCHOOL_ENTRY_ID", school);
+    formData.append("entry.COUNTRY_ENTRY_ID", country);  // 국가 필드 추가        
 
-    fetch(googleFormUrl, {
-      method: "POST",
-      mode: "no-cors", 
-      body: formData
-    })
+    fetch(googleFormUrl, { method: "POST", mode: "no-cors", body: formData })
     .then(() => {
       document.getElementById('applyForm').style.display = 'none';
       document.getElementById('successScreen').style.display = 'block';
     })
-    .catch(error => {
-      console.error("전송 에러:", error);
-      alert("접수 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.");
+    .catch(() => {
+      alert(currentLang === 'ko' ? "오류가 발생했습니다." : "Đã xảy ra lỗi, vui lòng thử lại.");
     });
   }
 
-  // 폼 리셋 기능 (항목 체크 로직 삭제)
   function resetForm() {
     document.getElementById('f_name').value = '';
     document.getElementById('f_phone').value = '';
     document.getElementById('f_school').value = '';
     document.getElementById('f_memo').value = '';
-    
     document.getElementById('applyForm').style.display = 'block';
     document.getElementById('successScreen').style.display = 'none';
   }
 
-  // 윈도우 로딩과 동시에 초기 구성 호출
   window.onload = function() {
-    initCountryGrid();
-    initFAQ();
+    // 초기 로딩 시 기본값(한국어)으로 렌더링 세팅
+    changeLanguage('ko');
   };
 </script>
 </body>

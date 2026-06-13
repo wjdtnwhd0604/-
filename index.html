@@ -443,7 +443,7 @@
     .calculator-title {
       font-size: 14px;
       font-weight: 700;
-      color: var(--color-text-main);
+      color: var(--text-main);
       margin-bottom: 10px;
     }
 
@@ -828,11 +828,13 @@
       <div class="form-section-title"><i class="ti ti-user-check"></i> 신청자 기본 정보</div>
       <div class="form-row">
         <label class="form-label">보호자(혹은 신청자) 성함 <span class="req">*</span></label>
-        <input type="text" id="f_name" placeholder="실명을 입력해 주세요">
+        <!-- 구글 설문지 성함 데이터 매칭 완료 -->
+        <input type="text" id="f_name" data-entry="entry.2064975735" placeholder="실명을 입력해 주세요">
       </div>
       <div class="form-row">
         <label class="form-label">연락처 <span class="req">*</span></label>
-        <input type="tel" id="f_phone" placeholder="010-0000-0000">
+        <!-- 구글 설문지 연락처 데이터 매칭 완료 -->
+        <input type="tel" id="f_phone" data-entry="entry.1118171092" placeholder="010-0000-0000">
       </div>
       <div class="form-row">
         <label class="form-label">발행 및 소스 국가 <span class="req">*</span></label>
@@ -876,7 +878,8 @@
       <!-- 비고 / 남길말 -->
       <div class="form-section-title"><i class="ti ti-notebook"></i> 요청사항 및 비고</div>
       <div class="form-row">
-        <textarea id="f_memo" placeholder="예: 졸업증명서와 성적증명서 총 2개의 서류에 대해 번역과 아포스티유 공증 처리가 필요합니다. 추가 설명이 필요한 경우 여기에 적어주세요."></textarea>
+        <!-- 구글 설문지 비고 데이터 매칭 완료 -->
+        <textarea id="f_memo" data-entry="entry.46740638" placeholder="예: 졸업증명서와 성적증명서 총 2개의 서류에 대해 번역과 아포스티유 공증 처리가 필요합니다. 추가 설명이 필요한 경우 여기에 적어주세요."></textarea>
       </div>
 
       <button class="submit-btn" onclick="submitForm()">서류 대행 신청하기</button>
@@ -1048,7 +1051,6 @@
       const item = document.createElement('label');
       item.className = 'checkbox-item';
       
-      // 베트남은 아포스티유 공증 대행이 필수적이므로, UI 편의상 체크 권장되도록 구성
       const recommended = s.id === 's2' ? 'checked' : '';
       
       item.innerHTML = `
@@ -1090,7 +1092,7 @@
     });
     
     if (selectedRowsHtml === '') {
-      summaryRows.innerHTML = `<div style="font-size: 12px; color: rgba(255, 255, 255, 0.6); text-align: center; padding: 10px 0;">서비스 항목을 한 개 이상 선택해 주세요.</div>`;
+      summaryRows.innerHTML = `<div style="font-size: 12px; color: rgba(255, 255, 255, 0.6); text-align: center; padding: 10px 0;">服务项目를 한 개 이상 선택해 주세요.</div>`;
     } else {
       summaryRows.innerHTML = selectedRowsHtml;
     }
@@ -1127,7 +1129,6 @@
     }
   }
 
-  // 기타 다른 타겟팅 국가 임시 차단 조치
   function handleFormCountryChange(selectEl) {
     if (selectEl.value && selectEl.value !== '베트남') {
       alert('죄송합니다. 현재 본 프로그램은 신속한 처리를 위해 베트남 발급 서류를 우선 접수하고 있습니다. 조속히 다른 권역으로 확장하겠습니다.');
@@ -1145,7 +1146,6 @@
     if (btnElement) {
       btnElement.classList.add('active');
     } else {
-      // 프로그램적 호출일 경우 해당 버튼을 매칭하여 활성화 처리
       const buttons = document.querySelectorAll('.tab-btn');
       for (let btn of buttons) {
         if (btn.getAttribute('onclick').includes(`'${tabName}'`)) {
@@ -1155,16 +1155,14 @@
       }
     }
     
-    // 모바일 탭 이동 시 상단 스크롤 동기화
     window.scrollTo({ top: document.querySelector('.hero').offsetHeight - 50, behavior: 'smooth' });
   }
 
-  // 대행신청 탭으로 원터치 전환 및 스크롤
   function goToApplyTab() {
     showTab('apply', null);
   }
 
-  // 8. 폼 제출 프로세스 (목 데이터)
+  // 8. 폼 제출 프로세스 (구글 설문지 백그라운드 연동 완료)
   function submitForm() {
     const name = document.getElementById('f_name').value.trim();
     const phone = document.getElementById('f_phone').value.trim();
@@ -1174,10 +1172,31 @@
       alert('이름, 연락처, 그리고 신청 국가는 필수 사항입니다. 정확한 상담을 위해 꼭 입력 부탁드립니다.');
       return;
     }
+
+    // 구글 폼 진짜 전송 주소 세팅[cite: 1]
+    const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSfQp5L3N-S9Vn6-E_D2B_6Uq_5R_6D_D8ZjiXbR_cA/formResponse";
     
-    // UI 분기 - 성공화면 전환
-    document.getElementById('applyForm').style.display = 'none';
-    document.getElementById('successScreen').style.display = 'block';
+    // 폼 데이터 수집 및 매칭[cite: 1]
+    const formData = new FormData();
+    formData.append(document.getElementById('f_name').getAttribute('data-entry'), name);
+    formData.append(document.getElementById('f_phone').getAttribute('data-entry'), phone);
+    formData.append(document.getElementById('f_memo').getAttribute('data-entry'), document.getElementById('f_memo').value);
+
+    // 배경에서 구글 서버로 전송 처리[cite: 1]
+    fetch(googleFormUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: formData
+    })
+    .then(() => {
+      // 전송 완료 시 기존 디자인 성공화면으로 깔끔하게 전환[cite: 1]
+      document.getElementById('applyForm').style.display = 'none';
+      document.getElementById('successScreen').style.display = 'block';
+    })
+    .catch(error => {
+      alert('오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+      console.error(error);
+    });
   }
 
   // 폼 리셋 기능
@@ -1190,7 +1209,7 @@
     const checkboxes = document.querySelectorAll('#serviceCheckboxList input[type="checkbox"]');
     checkboxes.forEach(chk => {
       if (chk.getAttribute('data-id') === 's2') {
-        chk.checked = true; // 권장 기본값 세팅
+        chk.checked = true;
       } else {
         chk.checked = false;
       }
@@ -1201,7 +1220,6 @@
     document.getElementById('successScreen').style.display = 'none';
   }
 
-  // 윈도우 로딩과 동시에 초기 구성 호출
   window.onload = function() {
     initCountryGrid();
     initServiceCheckboxes();

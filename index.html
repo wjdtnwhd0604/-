@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -174,8 +174,9 @@
 <div class="site-wrap">
   <!-- 다국어 토글 UI -->
   <div class="lang-switcher">
-    <button class="lang-btn active" id="btn-ko" onclick="changeLanguage('ko')">🇰🇷 KO</button>
-    <button class="lang-btn" id="btn-vi" onclick="changeLanguage('vi')">🇻🇳 VN</button>
+    <!-- 기본값을 베트남어(VN)로 변경했습니다 -->
+    <button class="lang-btn" id="btn-ko" onclick="changeLanguage('ko')">🇰🇷 KO</button>
+    <button class="lang-btn active" id="btn-vi" onclick="changeLanguage('vi')">🇻🇳 VN</button>
   </div>
 
   <div class="hero">
@@ -334,7 +335,7 @@
   /* =========================================
      1. 다국어 (i18n) 데이터 사전 (한국어 / 베트남어)
      ========================================= */
-  let currentLang = 'ko';
+  let currentLang = 'vi'; // 기본 언어를 베트남어로 변경
 
   const i18nData = {
     ko: {
@@ -600,8 +601,8 @@
   }
 
   window.onload = function() {
-    // 초기 로딩 시 기본값(한국어)으로 렌더링 세팅
-    changeLanguage('ko');
+    // 초기 로딩 시 기본값(베트남어)으로 렌더링 세팅
+    changeLanguage('vi');
   };
 </script>
 </body>

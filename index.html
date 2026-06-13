@@ -1146,7 +1146,7 @@
     showTab('apply', null);
   }
 
-  // 8. 폼 제출 프로세스 (구글 폼 백엔드 연동)
+  // 8. 폼 제출 프로세스 (구글 폼 백엔드 연동 및 오타 수정본)
   function submitForm() {
     const name = document.getElementById('f_name').value.trim();
     const phone = document.getElementById('f_phone').value.trim();
@@ -1169,28 +1169,31 @@
     });
     const servicesText = selectedServices.join(', ');
 
-    // 추출된 구글 폼 주소
+    // 구글 폼 수집 주소
     const googleFormUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLScsp0Fo4PeU-mXocxD4AV33w4UNWkUvKfY7U6NiGnE7wLdqHQ/formResponse";
     
     const formData = new FormData();
-    // 획득한 entry 고유 번호 적용
+    
+    // 구글 폼에서 추출한 ID값 맵핑 (국가 전송 변수 교정 완료)
     formData.append("entry.1924173721", name);          // 보호자 성함
     formData.append("entry.436306185", phone);           // 연락처
-    formData.append("entry.51810517", country);          // 발행 국가 (베트남)
+    formData.append("entry.51810517", country);          // 발행 국가 (★ memo에서 country로 전송 변수 수정 완료)
     
-    // 나머지 세 항목의 entry ID를 찾아 따옴표 안쪽에 각각 기입해 주세요.
+    // 나머지 추가 문항들이 구글 폼에 존재할 때 전송될 수 있도록 설정되어 있습니다.
+    // 만약 아래 세 문항의 실제 구글 폼 entry 고유 번호 숫자를 찾으셨다면 따옴표 내부를 수정해 주시고, 
+    // 구글 폼에 해당 질문을 안 만드셨다면 아래 3줄은 그냥 두시거나 지우셔도 무방합니다.
     formData.append("entry.자녀나이_ID_확인필요", school);        
     formData.append("entry.서비스항목_ID_확인필요", servicesText);  
     formData.append("entry.요청사항_ID_확인필요", memo);          
 
-    // GitHub Pages(정적) 환경에서 구글 폼으로 전송하는 비동기 요청
+    // 구글 폼 데이터 비동기 제출 실행
     fetch(googleFormUrl, {
       method: "POST",
       mode: "no-cors", 
       body: formData
     })
     .then(() => {
-      // 정상 완료 처리 및 UI 제어 (기존 성공 화면 표시 전환 로직)
+      // 성공 화면 화면 전환
       document.getElementById('applyForm').style.display = 'none';
       document.getElementById('successScreen').style.display = 'block';
     })
